@@ -3,6 +3,8 @@
 
 # PluckAll
 
+Plucking Multiple Columns in Rails 3. Also support in Rails 4, and Rails 5
+
 ## Installation
 
 Add this line to your application's Gemfile:
