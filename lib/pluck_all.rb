@@ -1,4 +1,6 @@
 require "pluck_all/version"
+require 'rails'
+require 'active_record'
 
 class ActiveRecord::Base
   if !defined?(attribute_types) && defined?(column_types)
