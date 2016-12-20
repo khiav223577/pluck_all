@@ -19,6 +19,7 @@ ActiveRecord::Schema.define do
   end
   create_table :posts, :force => true do |t|
     t.integer :id
+    t.integer :user_id
     t.string :title
   end
 end
