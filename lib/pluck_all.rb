@@ -60,11 +60,6 @@ private
     #return klass.connection.select_all(relation.arel)
   end
 end
-class ActiveRecord::Base
-  def self.pluck_all(*args)
-    self.where('').pluck_all(*args)
-  end
-end
 
 if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new('4.0.2')
   class ActiveRecord::Relation
@@ -77,4 +72,14 @@ if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new('4.0.2')
   end
 else
   alias_method :pluck_array, :pluck if not method_defined?(:pluck_array)
+end
+
+
+class ActiveRecord::Base
+  def self.pluck_all(*args)
+    self.where('').pluck_all(*args)
+  end
+  def self.pluck_array(*args)
+    self.where('').pluck_array(*args)
+  end
 end
