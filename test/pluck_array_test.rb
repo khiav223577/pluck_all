@@ -14,6 +14,26 @@ class PluckArrayTest < Minitest::Test
       ["Kathenrie", "kathenrie@example.com"],
     ], User.pluck_array(:name, :email))
   end
+  def test_pluck_serialized_attribute
+    assert_equal([
+      {}, 
+      {:testing => true, :deep => {:deep => :deep}},
+    ], User.where(:name => %w(John Pearl)).pluck_array(:serialized_attribute))
+  end
+  def test_join
+    assert_equal([
+      ['John', "John's post1"],
+      ['John', "John's post2"],
+      ['John', "John's post3"],
+    ], User.joins(:posts).where(:name => 'John').pluck_array(:name, :title))
+  end
+  def test_join_with_table_name
+    assert_equal([
+      ['John', "John's post1"],
+      ['John', "John's post2"],
+      ['John', "John's post3"],
+    ], User.joins(:posts).where(:name => 'John').pluck_array(:'users.name', :'posts.title'))
+  end
   def test_alias
     assert_equal([
       ["Pearl", "Pearl's post1"],
