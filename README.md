@@ -5,8 +5,13 @@
 
 Plucking Multiple Columns in Rails 3. Also support in Rails 4, and Rails 5
 
+This Gem standing on the shoulders of this [article](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/).
+And modify it to support not only Rail3.
+
 If you have a rails 3 project, and want to pluck not only one column, 
-feel free to use this gem and no need to worry about upgrading to Rails 4 in the future will break this.
+feel free to use this gem and no need to worry about upgrading to Rails 4, 5 in the future will break this.
+
+
 
 ## Installation
 
@@ -33,7 +38,6 @@ User.where(:id => [1,2]).pluck_array(:id, :account)
 ```
 ### pluck to hash
 Similar to pluck_array, but return a hash instead.
-(Standing on the shoulders of this [article](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/))
 ```rb
 User.where(:id => [1,2]).pluck_all(:id, :account)
 # => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}] 
