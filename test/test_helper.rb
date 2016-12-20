@@ -14,6 +14,7 @@ ActiveRecord::Schema.define do
   create_table :users, :force => true do |t|
     t.integer :id
     t.string :name
+    t.string :email
     t.text :serialized_attribute
   end
   create_table :posts, :force => true do |t|
@@ -28,3 +29,4 @@ end
 class Post < ActiveRecord::Base
   belongs_to :user
 end
+require 'seeds'
