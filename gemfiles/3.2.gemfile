@@ -2,6 +2,6 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in pluck_all.gemspec
 
-gem "rails", "~> 4.2"
+gem "rails", "~> 3.2"
 gemspec :path => "../"
 
