@@ -8,30 +8,32 @@ class PluckAllTest < Minitest::Test
     refute_nil ::PluckAll::VERSION
   end
   def test_pluck_one_column
-    assert_equal(User.pluck_all(:name), [{'name' => 'John'}, {'name' => 'Pearl'}, {'name' => 'Kathenrie'}])
+    assert_equal([{'name' => 'John'}, {'name' => 'Pearl'}, {'name' => 'Kathenrie'}], User.pluck_all(:name))
   end
   def test_pluck_multiple_column
-    assert_equal(User.pluck_all(:name, :email), [
+    assert_equal([
       {'name' => 'John', 'email' => 'john@example.com'}, 
       {'name' => 'Pearl', 'email' => 'pearl@example.com'}, 
       {'name' => 'Kathenrie', 'email' => 'kathenrie@example.com'},
-    ])
+    ], User.pluck_all(:name, :email))
   end
   def test_pluck_serialized_attribute
-    assert_equal(User.where(:name => %w(John Pearl)).pluck_all(:serialized_attribute), [
+    assert_equal([
       {'serialized_attribute' => {}}, 
       {'serialized_attribute' => {:testing => true, :deep => {:deep => :deep}}},
-    ])
+    ], User.where(:name => %w(John Pearl)).pluck_all(:serialized_attribute))
   end
 
-  def test_join_and_alias_column
-    assert_equal(User.joins(:posts).where(:name => 'John').pluck_all(:name, :title), [
-      {'name' => 'John', 'title' => 'John\'s post1'},
-      {'name' => 'John', 'title' => 'John\'s post2'},
-      {'name' => 'John', 'title' => 'John\'s post3'},
-    ])
-    assert_equal(User.joins(:posts).where(:name => 'Pearl').pluck_all(:'name AS user_name', :'title AS post_title'), [
-      {'user_name' => 'Pearl', 'post_title' => 'Pearl\'s post1'},
-    ])
+  def test_join
+    assert_equal([
+      {'name' => 'John', 'title' => "John's post1"},
+      {'name' => 'John', 'title' => "John's post2"},
+      {'name' => 'John', 'title' => "John's post3"},
+    ], User.joins(:posts).where(:name => 'John').pluck_all(:name, :title))
+  end
+  def test_alias
+    assert_equal([
+      {'user_name' => 'Pearl', 'post_title' => "Pearl's post1"},
+    ], User.joins(:posts).where(:name => 'Pearl').pluck_all(:'name AS user_name', :'title AS post_title'))
   end
 end
