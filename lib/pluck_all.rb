@@ -61,17 +61,18 @@ private
   end
 end
 
-if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new('4.0.2')
-  class ActiveRecord::Relation
+
+class ActiveRecord::Relation
+  if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new('4.0.2')
     def pluck_array(*args)
       return pluck_all(*args).map{|hash|
         result = hash.values #P.S. 這裡是相信ruby 1.9以後，hash.values的順序跟insert的順序一樣。
         next (result.one? ? result.first : result)
       }
     end
+  else
+    alias_method :pluck_array, :pluck if not method_defined?(:pluck_array)
   end
-else
-  alias_method :pluck_array, :pluck if not method_defined?(:pluck_array)
 end
 
 
