@@ -34,6 +34,7 @@ class PluckAllTest < Minitest::Test
   def test_alias
     assert_equal([
       {'user_name' => 'Pearl', 'post_title' => "Pearl's post1"},
+      {'user_name' => 'Pearl', 'post_title' => "Pearl's post2"},
     ], User.joins(:posts).where(:name => 'Pearl').pluck_all(:'name AS user_name', :'title AS post_title'))
   end
 end

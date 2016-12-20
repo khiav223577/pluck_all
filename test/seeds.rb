@@ -28,4 +28,6 @@ Post.create([
   {:title => "John's post2", :user_id => users[0].id},
   {:title => "John's post3", :user_id => users[0].id},
   {:title => "Pearl's post1", :user_id => users[1].id},
+  {:title => "Pearl's post2", :user_id => users[1].id},
+  {:title => "Kathenrie's post1", :user_id => users[2].id},
 ])
