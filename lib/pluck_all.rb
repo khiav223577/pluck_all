@@ -57,7 +57,7 @@ private
     relation = clone
     relation.select_values = args
     return klass.connection.select_all(relation.to_sql)
-    #return klass.connection.select_all(relation.arel, nil, relation)
+    #return klass.connection.select_all(relation.arel)
   end
 end
 class ActiveRecord::Base
