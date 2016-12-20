@@ -1,3 +1,25 @@
+ActiveRecord::Schema.define do
+  self.verbose = false
+
+  create_table :users, :force => true do |t|
+    t.integer :id
+    t.string :name
+    t.string :email
+    t.text :serialized_attribute
+  end
+  create_table :posts, :force => true do |t|
+    t.integer :id
+    t.integer :user_id
+    t.string :title
+  end
+end
+class User < ActiveRecord::Base
+  serialize :serialized_attribute, Hash
+  has_many :posts
+end
+class Post < ActiveRecord::Base
+  belongs_to :user
+end
 users = User.create([
   {:name => 'John', :email => 'john@example.com'},
   {:name => 'Pearl', :email => 'pearl@example.com', :serialized_attribute => {:testing => true, :deep => {:deep => :deep}}},
