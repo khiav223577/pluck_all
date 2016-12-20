@@ -25,7 +25,15 @@ Or install it yourself as:
     $ gem install pluck_all
 
 ## Usage
-
+### pluck to array
+Behaves the same as the Rails 4 pluck, but you can use it in Rails 3
+```rb
+User.where(:id => [1,2]).pluck_array(:id, :account)
+# => [[1, 'account1'], [2, 'account2']]
+```
+### pluck to hash
+Similar to pluck_array, but return a hash instead.
+(Standing on the shoulders of this [article](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/))
 ```rb
 User.where(:id => [1,2]).pluck_all(:id, :account)
 # => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}] 
