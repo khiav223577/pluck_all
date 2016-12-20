@@ -1,7 +1,45 @@
 require 'test_helper'
 
 class PluckAllTest < Minitest::Test
+  def setup
+    
+  end
   def test_that_it_has_a_version_number
     refute_nil ::PluckAll::VERSION
+  end
+  def test_pluck_one_column
+    assert_equal([{'name' => 'John'}, {'name' => 'Pearl'}, {'name' => 'Kathenrie'}], User.pluck_all(:name))
+  end
+  def test_pluck_multiple_column
+    assert_equal([
+      {'name' => 'John', 'email' => 'john@example.com'}, 
+      {'name' => 'Pearl', 'email' => 'pearl@example.com'}, 
+      {'name' => 'Kathenrie', 'email' => 'kathenrie@example.com'},
+    ], User.pluck_all(:name, :email))
+  end
+  def test_pluck_serialized_attribute
+    assert_equal([
+      {'serialized_attribute' => {}}, 
+      {'serialized_attribute' => {:testing => true, :deep => {:deep => :deep}}},
+    ], User.where(:name => %w(John Pearl)).pluck_all(:serialized_attribute))
+  end
+
+  def test_join
+    assert_equal([
+      {'name' => 'John', 'title' => "John's post1"},
+      {'name' => 'John', 'title' => "John's post2"},
+      {'name' => 'John', 'title' => "John's post3"},
+    ], User.joins(:posts).where(:name => 'John').pluck_all(:name, :title))
+    assert_equal([
+      {'name' => 'John', 'title' => "John's post1"},
+      {'name' => 'John', 'title' => "John's post2"},
+      {'name' => 'John', 'title' => "John's post3"},
+    ], User.joins(:posts).where(:name => 'John').pluck_all(:'users.name', :'posts.title'))
+  end
+  def test_alias
+    assert_equal([
+      {'user_name' => 'Pearl', 'post_title' => "Pearl's post1"},
+      {'user_name' => 'Pearl', 'post_title' => "Pearl's post2"},
+    ], User.joins(:posts).where(:name => 'Pearl').pluck_all(:'name AS user_name', :'title AS post_title'))
   end
 end
