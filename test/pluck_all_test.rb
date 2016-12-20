@@ -10,7 +10,7 @@ class PluckAllTest < Minitest::Test
   def test_pluck_one_column
     assert_equal([{'name' => 'John'}, {'name' => 'Pearl'}, {'name' => 'Kathenrie'}], User.pluck_all(:name))
   end
-  def test_pluck_multiple_column
+  def test_pluck_multiple_columns
     assert_equal([
       {'name' => 'John', 'email' => 'john@example.com'}, 
       {'name' => 'Pearl', 'email' => 'pearl@example.com'}, 
@@ -23,13 +23,14 @@ class PluckAllTest < Minitest::Test
       {'serialized_attribute' => {:testing => true, :deep => {:deep => :deep}}},
     ], User.where(:name => %w(John Pearl)).pluck_all(:serialized_attribute))
   end
-
   def test_join
     assert_equal([
       {'name' => 'John', 'title' => "John's post1"},
       {'name' => 'John', 'title' => "John's post2"},
       {'name' => 'John', 'title' => "John's post3"},
     ], User.joins(:posts).where(:name => 'John').pluck_all(:name, :title))
+  end
+  def test_join_with_table_name
     assert_equal([
       {'name' => 'John', 'title' => "John's post1"},
       {'name' => 'John', 'title' => "John's post2"},
