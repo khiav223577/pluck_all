@@ -37,7 +37,7 @@ User.where(:id => [1,2]).pluck_array(:id, :account)
 # => [[1, 'account1'], [2, 'account2']]
 ```
 ### pluck to hash
-Similar to pluck_array, but return a hash instead.
+Similar to `pluck_array`, but return hash instead.
 ```rb
 User.where(:id => [1,2]).pluck_all(:id, :account)
 # => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}] 
