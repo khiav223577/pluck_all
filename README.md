@@ -41,6 +41,8 @@ Similar to pluck_array, but return a hash instead.
 ```rb
 User.where(:id => [1,2]).pluck_all(:id, :account)
 # => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}] 
+User.where(:id => [1,2]).pluck_all('id, account AS name')
+# => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}] 
 ```
 
 ## Development
