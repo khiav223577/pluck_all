@@ -1,4 +1,6 @@
 [![Gem Version](https://badge.fury.io/rb/pluck_all.svg)](http://badge.fury.io/rb/pluck_all)
+[![Code Climate](https://codeclimate.com/github/khiav223577/pluck_all/badges/gpa.svg)](https://codeclimate.com/github/khiav223577/pluck_all)
+[![Test Coverage](https://codeclimate.com/github/khiav223577/pluck_all/badges/coverage.svg)](https://codeclimate.com/github/khiav223577/pluck_all/coverage)
 [![Build Status](https://travis-ci.org/khiav223577/pluck_all.svg?branch=master)](https://travis-ci.org/khiav223577/pluck_all)
 
 # PluckAll
