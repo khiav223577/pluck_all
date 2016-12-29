@@ -31,7 +31,7 @@ class ActiveRecord::Relation
         initialized_attributes = klass.initialize_attributes(attributes)
         attributes.each do |key, attribute|
           tmp = klass.type_cast_attribute(key, initialized_attributes) #TODO 現在AS過後的type cast會有一點問題
-          attributes[key] = cast_carrier_wave_uploader_url(tmp)
+          attributes[key] = cast_carrier_wave_uploader_url(key, tmp)
         end
       end
     end
@@ -42,7 +42,7 @@ class ActiveRecord::Relation
       result.map! do |attributes| #這邊的map似乎跟array.map!不一樣，result的值不會變
         attributes.each do |key, attribute|
           tmp = result.send(:column_type, key, attribute_types).deserialize(attribute) #TODO 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
-          attributes[key] = cast_carrier_wave_uploader_url(tmp)
+          attributes[key] = cast_carrier_wave_uploader_url(key, tmp)
         end
       end
     end
@@ -72,7 +72,7 @@ private
       return obj.send(:_mounter, :profile_pic).uploader.to_s
     end
   else
-    def cast_carrier_wave_uploader_url(key, value) ; end
+    def cast_carrier_wave_uploader_url(key, value) ; return value; end
   end
 end
 
