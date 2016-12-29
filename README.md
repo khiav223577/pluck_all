@@ -1,6 +1,6 @@
-[![Gem Version](https://img.shields.io/gem/v/pluck_all.svg?style=flat)](ruby_gems)
+[![Gem Version](https://img.shields.io/gem/v/pluck_all.svg?style=flat)](http://rubygems.org/gems/pluck_all)
 [![Build Status](https://travis-ci.org/khiav223577/pluck_all.svg?branch=master)](https://travis-ci.org/khiav223577/pluck_all)
-[![RubyGems](http://img.shields.io/gem/dt/pluck_all.svg?style=flat)](ruby_gems)
+[![RubyGems](http://img.shields.io/gem/dt/pluck_all.svg?style=flat)](http://rubygems.org/gems/pluck_all)
 [![Code Climate](https://codeclimate.com/github/khiav223577/pluck_all/badges/gpa.svg)](https://codeclimate.com/github/khiav223577/pluck_all)
 [![Test Coverage](https://codeclimate.com/github/khiav223577/pluck_all/badges/coverage.svg)](https://codeclimate.com/github/khiav223577/pluck_all/coverage)
 
