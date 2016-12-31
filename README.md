@@ -6,7 +6,7 @@
 
 # PluckAll
 
-Pluck multiple attributes in Rails 3. Also support in Rails 4, and Rails 5
+Pluck multiple attributes in Rails 3, 4, 5, and can return data as hash instead of only array.
 
 This Gem standing on the shoulders of this [article](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/).
 And modify it to support not only Rail 3.
