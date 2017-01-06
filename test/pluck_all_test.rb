@@ -22,7 +22,14 @@ class PluckAllTest < Minitest::Test
       {'name' => 'John', 'title' => "John's post1"},
       {'name' => 'John', 'title' => "John's post2"},
       {'name' => 'John', 'title' => "John's post3"},
-    ], User.where('title LIKE ?', "John's %").joins(:posts).pluck_all(:name, :title))
+    ], User.where(:name => 'John').joins(:posts).pluck_all(:name, :title))
+  end
+  def test_pluck_with_associations
+    assert_equal([
+      {'title' => "John's post1"},
+      {'title' => "John's post2"},
+      {'title' => "John's post3"},
+    ], User.where(:name => 'John').first.posts.pluck_all(:title))
   end
   def test_pluck_serialized_attribute
     assert_equal([
