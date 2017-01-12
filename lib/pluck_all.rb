@@ -1,5 +1,4 @@
 require "pluck_all/version"
-require 'rails'
 require 'active_record'
 
 class ActiveRecord::Base
@@ -24,7 +23,7 @@ module ActiveRecord
   end
 end
 class ActiveRecord::Relation
-  if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new('4.0.0')
+  if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*args)
       result = select_all(*args)
       result.map! do |attributes|
@@ -62,7 +61,7 @@ end
 
 
 class ActiveRecord::Relation
-  if Gem::Version.new(Rails::VERSION::STRING) < Gem::Version.new('4.0.2')
+  if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.2')
     def pluck_array(*args)
       return pluck_all(*args).map{|hash|
         result = hash.values #P.S. 這裡是相信ruby 1.9以後，hash.values的順序跟insert的順序一樣。
