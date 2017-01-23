@@ -12,11 +12,13 @@ ActiveRecord::Schema.define do
     t.string :title
   end
 end
-require 'carrierwave'
-require 'carrierwave/orm/activerecord'
+require 'carrierwave_test_helper'
 class ProfilePictureUploader < CarrierWave::Uploader::Base
   def store_dir
-    return "#{Rails.root}/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    return "/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+  def filename
+    "profile.#{file.extension.downcase}" if original_filename.present?
   end
 end
 class User < ActiveRecord::Base
@@ -30,8 +32,9 @@ end
 users = User.create([
   {:name => 'John', :email => 'john@example.com'},
   {:name => 'Pearl', :email => 'pearl@example.com', :serialized_attribute => {:testing => true, :deep => {:deep => :deep}}},
-  {:name => 'Kathenrie', :email => 'kathenrie@example.com', :profile_pic => 'profile.jpg'},
+  {:name => 'Kathenrie', :email => 'kathenrie@example.com'},
 ])
+User.where(:name => 'Kathenrie').update_all(:profile_pic => 'Profile.jpg') # skip carrierwave
 Post.create([
   {:title => "John's post1", :user_id => users[0].id},
   {:title => "John's post2", :user_id => users[0].id},
