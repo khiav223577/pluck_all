@@ -62,16 +62,16 @@ private
 #----------------------------------
 #  Support casting CarrierWave url
 #----------------------------------
-  if defined?(CarrierWave)
-    def cast_carrier_wave_uploader_url(key, value)
+  def cast_carrier_wave_uploader_url(key, value)
+    if defined?(CarrierWave)
       key_sym = key.to_sym
       return value if !klass.uploaders.key?(key_sym)
       obj = klass.new
       obj[key_sym] = value
       return obj.send(:_mounter, key_sym).uploader.to_s
+    else
+      return value
     end
-  else
-    def cast_carrier_wave_uploader_url(key, value) ; return value; end
   end
 end
 
