@@ -46,8 +46,9 @@ class ActiveRecord::Relation
       end
     end
   end
-  def cast_need_columns(*column_names)
+  def cast_need_columns(column_names, _klass = nil)
     @pluck_all_cast_need_columns = column_names.map(&:to_s)
+    @pluck_all_cast_klass = _klass || klass
     return self
   end
 private
@@ -67,10 +68,10 @@ private
 #  Support casting CarrierWave url
 #----------------------------------
   def cast_carrier_wave_uploader_url(attributes)
-    if defined?(CarrierWave)
-      klass.uploaders.each do |key, uploader|
+    if defined?(CarrierWave) and @pluck_all_cast_klass
+      @pluck_all_cast_klass.uploaders.each do |key, uploader|
         next if (value = attributes[key.to_s]) == nil
-        obj = klass.new
+        obj = @pluck_all_cast_klass.new
         obj[key] = value
         @pluck_all_cast_need_columns.each{|s| obj[s] = attributes[s] }
         attributes[key.to_s] = obj.send(:_mounter, key).uploader.to_s #uploaders.first

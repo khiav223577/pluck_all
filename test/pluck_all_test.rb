@@ -64,14 +64,14 @@ class PluckAllTest < Minitest::Test
     assert_equal([
       {'name' => 'Pearl', 'profile_pic' => nil},
       {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Kathenrie/Profile.jpg"},
-    ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(:name).pluck_all(:name, :'profile_pic'))
+    ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(:name, :'profile_pic'))
   end
   def test_pluck_without_carrierwave
     const = Object.send(:remove_const, :CarrierWave)
     assert_equal([
       {'name' => 'Pearl', 'profile_pic' => nil},
       {'name' => 'Kathenrie', 'profile_pic' => "Profile.jpg"},
-    ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(:name).pluck_all(:name, :'profile_pic'))
+    ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(:name, :'profile_pic'))
     Object.const_set(:CarrierWave, const)
   end
   def test_pluck_with_carrierwave_and_join
@@ -79,6 +79,6 @@ class PluckAllTest < Minitest::Test
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post4'},
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post5'},
       {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Kathenrie/Profile.jpg", 'post_name' => 'post6'},
-    ], User.joins(:posts).where(:'name' => %w(Pearl Kathenrie)).cast_need_columns(:'name').pluck_all(:name, :'posts.name AS post_name', :'profile_pic'))
+    ], User.joins(:posts).where(:'name' => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(:name, :'posts.name AS post_name', :'profile_pic'))
   end
 end
