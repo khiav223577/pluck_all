@@ -73,7 +73,7 @@ private
         obj = klass.new
         obj[key] = value
         @pluck_all_cast_need_columns.each{|s| obj[s] = attributes[s] }
-        attributes[key.to_s] = obj.send(:_mounter, key).uploader.to_s
+        attributes[key.to_s] = obj.send(:_mounter, key).uploader.to_s #uploaders.first
       end
     end
     return attributes
