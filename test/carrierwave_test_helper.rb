@@ -12,3 +12,11 @@ class ProfilePictureUploader < CarrierWave::Uploader::Base
     "profile.#{file.extension.downcase}" if original_filename.present?
   end
 end
+class PetPictureUploader < CarrierWave::Uploader::Base
+  def store_dir
+    return "/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.name}"
+  end
+  def filename
+    "pet.#{file.extension.downcase}" if original_filename.present?
+  end
+end
