@@ -49,6 +49,20 @@ User.where('id < 3').pluck_all('id, account AS name')
 # => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}] 
 ```
 
+### Support Pluck Carrierwave Uploader
+```rb
+User.where(xxx).pluck_all(:profile_pic).map{|s| s['profile_pic'] }
+```
+is the same as
+```rb
+User.where(xxx).map(&:profile_pic)
+```
+If the uploader use something like: `model.id`, `model.name`
+You should send need columns manaually:
+```rb
+User.where(xxx).cast_need_columns(%i(id, name)).pluck_all(:id, :name, :profile_pic).map{|s| s['profile_pic'] }
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
