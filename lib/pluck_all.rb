@@ -70,11 +70,11 @@ private
   def cast_carrier_wave_uploader_url(attributes)
     if defined?(CarrierWave) and @pluck_all_cast_klass
       @pluck_all_cast_klass.uploaders.each do |key, uploader|
-        next if (value = attributes[key.to_s]) == nil
+        value = attributes[key.to_s]
         obj = @pluck_all_cast_klass.new
         obj[key] = value
         @pluck_all_cast_need_columns.each{|s| obj[s] = attributes[s] }
-        attributes[key.to_s] = obj.send(:_mounter, key).uploader.to_s #uploaders.first
+        attributes[key.to_s] = obj.send(:_mounter, key).uploader #uploaders.first
       end
     end
     return attributes
