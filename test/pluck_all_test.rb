@@ -83,12 +83,6 @@ class PluckAllTest < Minitest::Test
       s['profile_pic'] = s['profile_pic'].url
       s['pet_pic'] = s['pet_pic'].url
     })
-    assert_equal([
-      {'name' => 'Pearl', 'profile_pic' => nil},
-      {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Kathenrie/tiny_Profile.jpg"},
-    ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(:name, :'profile_pic').each{|s| 
-      s['profile_pic'] = s['profile_pic'].tiny.url
-    })
   end
   def test_pluck_without_carrierwave
     const = Object.send(:remove_const, :CarrierWave)
