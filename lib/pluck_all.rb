@@ -25,7 +25,7 @@ end
 class ActiveRecord::Relation
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*args)
-      result = select_all(*args, *@pluck_all_cast_need_columns)
+      result = select_all(*args)
       result.map! do |attributes| #This map! behaves different to array#map!
         initialized_attributes = klass.initialize_attributes(attributes)
         attributes.each do |key, attribute|
@@ -36,7 +36,7 @@ class ActiveRecord::Relation
     end
   else
     def pluck_all(*args)
-      result = select_all(*args, *@pluck_all_cast_need_columns)
+      result = select_all(*args)
       attribute_types = klass.attribute_types
       result.map! do |attributes| #This map! behaves different to array#map!
         attributes.each do |key, attribute|

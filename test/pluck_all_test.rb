@@ -71,6 +71,6 @@ class PluckAllTest < Minitest::Test
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post4'},
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post5'},
       {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Kathenrie/Profile.jpg", 'post_name' => 'post6'},
-    ], User.joins(:posts).where(:'name' => %w(Pearl Kathenrie)).cast_need_columns(:'name').pluck_all(:'posts.name AS post_name', :'profile_pic'))
+    ], User.joins(:posts).where(:'name' => %w(Pearl Kathenrie)).cast_need_columns(:'name').pluck_all(:name, :'posts.name AS post_name', :'profile_pic'))
   end
 end
