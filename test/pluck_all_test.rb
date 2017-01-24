@@ -75,10 +75,13 @@ class PluckAllTest < Minitest::Test
     Object.const_set(:CarrierWave, const)
   end
   def test_pluck_with_carrierwave_and_join
-    assert_equal([
+    excepted = [
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post4'},
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post5'},
       {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Kathenrie/Profile.jpg", 'post_name' => 'post6'},
-    ], User.joins(:posts).where(:'name' => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(:name, :'posts.name AS post_name', :'profile_pic'))
+    ]
+    attributes = [:'users.name AS name', :'posts.name AS post_name', :'profile_pic']
+    assert_equal(excepted, User.joins(:posts).where(:'users.name' => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(*attributes))
+    assert_equal(excepted, Post.joins(:user).where(:'users.name' => %w(Pearl Kathenrie)).cast_need_columns(%i(name), User).pluck_all(*attributes))
   end
 end
