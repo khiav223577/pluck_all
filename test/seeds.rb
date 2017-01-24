@@ -29,6 +29,7 @@ users = User.create([
   {:name => 'Pearl', :email => 'pearl@example.com', :serialized_attribute => {:testing => true, :deep => {:deep => :deep}}},
   {:name => 'Kathenrie', :email => 'kathenrie@example.com'},
 ])
+User.where(:name => 'John').update_all(:profile_pic => 'JohnProfile.jpg') # skip carrierwave
 User.where(:name => 'Kathenrie').update_all(:profile_pic => 'Profile.jpg', :pet_pic => 'Pet.png') # skip carrierwave
 Post.create([
   {:name => 'post1', :title => "John's post1", :user_id => users[0].id},
