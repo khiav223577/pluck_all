@@ -13,14 +13,6 @@ ActiveRecord::Schema.define do
   end
 end
 require 'carrierwave_test_helper'
-class ProfilePictureUploader < CarrierWave::Uploader::Base
-  def store_dir
-    return "/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  end
-  def filename
-    "profile.#{file.extension.downcase}" if original_filename.present?
-  end
-end
 class User < ActiveRecord::Base
   serialize :serialized_attribute, Hash
   mount_uploader :profile_pic, ProfilePictureUploader

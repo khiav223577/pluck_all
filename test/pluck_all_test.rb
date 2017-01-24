@@ -57,4 +57,13 @@ class PluckAllTest < Minitest::Test
       {'user_name' => 'Pearl', 'post_title' => "Pearl's post2"},
     ], User.joins(:posts).where(:name => 'Pearl').pluck_all(:'name AS user_name', :'title AS post_title'))
   end
+#-------------------------------------------
+#  Test CarrierWave
+#-------------------------------------------
+  def test_pluck_with_carrier_wave_column
+    assert_equal([
+      {'name' => 'Pearl', 'profile_pic' => nil},
+      {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Profile.jpg"},
+    ], User.where(:name => %w(Pearl Kathenrie)).extra_select(:id).pluck_all(:name, :'profile_pic'))
+  end
 end
