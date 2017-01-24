@@ -82,6 +82,14 @@ class PluckAllTest < Minitest::Test
     ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(%i(name)).pluck_all(:name, :'profile_pic'))
     Object.const_set(:CarrierWave, const)
   end
+  def test_pluck_without_cast_need_columns
+    assert_equal([
+      {'name' => 'Pearl', 'pet_pic' => nil},
+      {'name' => 'Kathenrie', 'pet_pic' => "/uploads/user/pet_pic/Pet.png"},
+    ], User.where(:name => %w(Pearl Kathenrie)).pluck_all(:name, :'pet_pic').each{|s| 
+      s['pet_pic'] = s['pet_pic'].url
+    })
+  end
   def test_pluck_with_carrierwave_and_join
     excepted = [
       {'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post4'},
