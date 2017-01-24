@@ -49,7 +49,7 @@ User.where('id < 3').pluck_all('id, account AS name')
 # => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}] 
 ```
 
-### Support Pluck Carrierwave Uploader
+### Support Pluck Carrierwave Uploader (if you use carrierwave)
 ```rb
 User.where(xxx).pluck_all(:profile_pic).map{|s| s['profile_pic'] }
 ```
@@ -58,7 +58,7 @@ is the same as
 User.where(xxx).map(&:profile_pic)
 ```
 If the uploader use something like: `model.id`, `model.name`
-You should send need columns manaually:
+You should send these columns manually:
 ```rb
 User.where(xxx).cast_need_columns(%i(id, name)).pluck_all(:id, :name, :profile_pic).map{|s| s['profile_pic'] }
 ```
