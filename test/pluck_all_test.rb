@@ -63,7 +63,7 @@ class PluckAllTest < Minitest::Test
   def test_pluck_with_carrier_wave_column
     assert_equal([
       {'name' => 'Pearl', 'profile_pic' => nil},
-      {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Profile.jpg"},
-    ], User.where(:name => %w(Pearl Kathenrie)).extra_select(:id).pluck_all(:name, :'profile_pic'))
+      {'name' => 'Kathenrie', 'profile_pic' => "/uploads/user/profile_pic/Kathenrie/Profile.jpg"},
+    ], User.where(:name => %w(Pearl Kathenrie)).cast_need_columns(:name).pluck_all(:name, :'profile_pic'))
   end
 end

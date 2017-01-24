@@ -25,31 +25,29 @@ end
 class ActiveRecord::Relation
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*args)
-      result = select_all(*args, *@pluck_all_extra_select)
+      result = select_all(*args, *@pluck_all_cast_need_columns)
       result.map! do |attributes| #This map! behaves different to array#map!
         initialized_attributes = klass.initialize_attributes(attributes)
         attributes.each do |key, attribute|
           attributes[key] = klass.type_cast_attribute(key, initialized_attributes) #TODO 現在AS過後的type cast會有一點問題
         end
-        attributes.except!(*@pluck_all_extra_select) if @pluck_all_extra_select
-        next attributes
+        cast_carrier_wave_uploader_url(attributes)
       end
     end
   else
     def pluck_all(*args)
-      result = select_all(*args, *@pluck_all_extra_select)
+      result = select_all(*args, *@pluck_all_cast_need_columns)
       attribute_types = klass.attribute_types
       result.map! do |attributes| #This map! behaves different to array#map!
         attributes.each do |key, attribute|
           attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute) #TODO 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
         end
-        attributes.except!(*@pluck_all_extra_select) if @pluck_all_extra_select
-        next attributes
+        cast_carrier_wave_uploader_url(attributes)
       end
     end
   end
-  def extra_select(*args)
-    @pluck_all_extra_select = args.map(&:to_s)
+  def cast_need_columns(*column_names)
+    @pluck_all_cast_need_columns = column_names.map(&:to_s)
     return self
   end
 private
@@ -68,19 +66,19 @@ private
 #----------------------------------
 #  Support casting CarrierWave url
 #----------------------------------
-  def cast_carrier_wave_uploader_url(key, value)
+  def cast_carrier_wave_uploader_url(attributes)
     if defined?(CarrierWave)
-      key_sym = key.to_sym
-      return value if !klass.uploaders.key?(key_sym)
-      obj = klass.new
-      obj[key_sym] = value
-      return obj.send(:_mounter, key_sym).uploader.to_s
-    else
-      return value
+      klass.uploaders.each do |key, uploader|
+        next if (value = attributes[key.to_s]) == nil
+        obj = klass.new
+        obj[key] = value
+        @pluck_all_cast_need_columns.each{|s| obj[s] = attributes[s] }
+        attributes[key.to_s] = obj.send(:_mounter, key).uploader.to_s
+      end
     end
+    return attributes
   end
 end
-
 
 class ActiveRecord::Relation
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.2')
@@ -97,6 +95,9 @@ end
 
 
 class ActiveRecord::Base
+  def self.cast_need_columns(*args)
+    self.where('').cast_need_columns(*args)
+  end
   def self.pluck_all(*args)
     self.where('').pluck_all(*args)
   end
