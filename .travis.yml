@@ -1,13 +1,17 @@
 language: ruby
 rvm:
-  - 2.2.4
-before_install: gem install bundler -v 1.11.2
-
+  - 2.2
+  - 2.3
+sudo: required
+dist: trusty
+before_install: 
+  - gem install bundler
+  - gem update --system
+  - gem --version
 gemfile:
   - gemfiles/3.2.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
-
 addons:
     code_climate:
         repo_token: db72eba1ff8fb1329dae5fb9b9dcd234243899d7a464ceb374e14a05ead27b7c
