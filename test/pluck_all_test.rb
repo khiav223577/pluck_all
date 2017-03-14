@@ -7,6 +7,10 @@ class PluckAllTest < Minitest::Test
   def test_that_it_has_a_version_number
     refute_nil ::PluckAll::VERSION
   end
+  def test_pluck_none
+    user_none = (ActiveRecord::Base.respond_to?(:none) ? User.none : User.where('1=0'))
+    assert_equal([], user_none.pluck_all(:id, :name))
+  end
   def test_pluck_one_column
     assert_equal([{'name' => 'John'}, {'name' => 'Pearl'}, {'name' => 'Kathenrie'}], User.pluck_all(:name))
   end
