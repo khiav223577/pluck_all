@@ -107,3 +107,9 @@ class ActiveRecord::Base
     self.where('').pluck_array(*args)
   end
 end
+
+module ActiveRecord::NullRelation
+  def pluck_all(*args)
+    []
+  end
+end
