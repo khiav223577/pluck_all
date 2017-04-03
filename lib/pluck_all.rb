@@ -68,7 +68,7 @@ private
 #  Support casting CarrierWave url
 #----------------------------------
   def cast_carrier_wave_uploader_url(attributes)
-    if defined?(CarrierWave)
+    if defined?(CarrierWave) && klass.respond_to?(:uploaders)
       @pluck_all_cast_klass ||= klass
       @pluck_all_uploaders ||= @pluck_all_cast_klass.uploaders.select{|key, uploader| attributes.key?(key.to_s) }
       @pluck_all_uploaders.each do |key, uploader|
