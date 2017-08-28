@@ -49,6 +49,21 @@ User.where('id < 3').pluck_all('id, account AS name')
 # => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}] 
 ```
 
+## Benchmark
+### Compare with `map` and `as_json`
+
+`pluck_all` return raw hash data without loading a bunch of records, in that having better performace than using `map` and `as_json`.
+
+```
+                                       user     system      total        real
+map                               36.110000  61.200000  97.310000 ( 99.535375)
+select + map                      10.530000   0.660000  11.190000 ( 12.550974)
+as_json                           49.040000   1.120000  50.160000 ( 55.417534)
+pluck_all                          3.310000   0.100000   3.410000 (  3.527775)
+```
+[test script](https://github.com/khiav223577/pluck_all/issues/18)
+
+## Other Support
 ### Support Pluck Carrierwave Uploader (if you use carrierwave)
 ```rb
 User.where(xxx).pluck_all(:profile_pic).map{|s| s['profile_pic'] }
