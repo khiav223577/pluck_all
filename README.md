@@ -52,16 +52,27 @@ User.where('id < 3').pluck_all('id, account AS name')
 ## Benchmark
 ### Compare with `map` and `as_json`
 
-`pluck_all` return raw hash data without loading a bunch of records, in that having better performace than using `map` and `as_json`.
+`pluck_all` return raw `hash` data without loading a bunch of records, in that having better performace than using `map` and `as_json`. The following is the benchmark test on 191,093 users, where users table have 51 columns.
 
-```
+```rb
                                        user     system      total        real
 map                               36.110000  61.200000  97.310000 ( 99.535375)
 select + map                      10.530000   0.660000  11.190000 ( 12.550974)
-as_json                           49.040000   1.120000  50.160000 ( 55.417534)
+select + as_json                  49.040000   1.120000  50.160000 ( 55.417534)
 pluck_all                          3.310000   0.100000   3.410000 (  3.527775)
 ```
 [test script](https://github.com/khiav223577/pluck_all/issues/18)
+
+### Compare with [pluck_to_hash](https://github.com/girishso/pluck_to_hash) gem
+
+`pluck_all` has better performace since it use raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` use the bulit-in `pluck` method to get `array` data from the raw `hash` data and then manually transfer to `hash` format again.
+
+```rb
+                                       user     system      total        real
+pluck_to_hash                      2.960000   0.130000   3.090000 (  3.421640)
+pluck_all                          2.160000   0.120000   2.280000 (  2.605118)
+```
+[test script](https://github.com/khiav223577/pluck_all/issues/18#issuecomment-325407080)
 
 ## Other Support
 ### Support Pluck Carrierwave Uploader (if you use carrierwave)
