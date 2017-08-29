@@ -52,7 +52,7 @@ User.where('id < 3').pluck_all('id, account AS name')
 ## Benchmark
 ### Compare with `map` and `as_json`
 
-`pluck_all` return raw `hash` data without loading a bunch of records, in that having better performace than using `map` and `as_json`. The following is the benchmark test on 191,093 users, where users table have 51 columns.
+`pluck_all` return raw `hash` data without loading a bunch of records, in that having better performace than using `map` and `as_json`. The following is the benchmark test on 191,093 users, where `users` table have 51 columns.
 
 ```rb
                                        user     system      total        real
@@ -65,7 +65,7 @@ pluck_all                          3.310000   0.100000   3.410000 (  3.527775)
 
 ### Compare with [pluck_to_hash](https://github.com/girishso/pluck_to_hash) gem
 
-`pluck_all` has better performace since it use raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` use the bulit-in `pluck` method to get `array` data from the raw `hash` data and then manually transfer to `hash` format again.
+`pluck_all` has better performace since it use raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` use the bulit-in `pluck` method to get `array` data from the raw `hash` data and then manually transfer to `hash` format again. The following benchmark test uses same datebase as above.
 
 ```rb
                                        user     system      total        real
@@ -84,7 +84,7 @@ is the same as
 User.where(xxx).map(&:profile_pic)
 ```
 If the uploader use something like: `model.id`, `model.name`
-You should send these columns manually:
+You may have to send these columns manually:
 ```rb
 User.where(xxx).cast_need_columns(%i(id, name)).pluck_all(:id, :name, :profile_pic).map{|s| s['profile_pic'] }
 ```
