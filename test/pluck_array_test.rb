@@ -33,7 +33,7 @@ class PluckArrayTest < Minitest::Test
   end
 
   def test_join_with_table_name
-    columns = [:'users.name', :'posts.title']  # sqlite3 has problem with this, can only use string instead of symbol.
+    columns = ['users.name', 'posts.title']  # sqlite3 has problem with this, can only use string instead of symbol.
     assert_equal([
       ['John', "John's post1"],
       ['John', "John's post2"],
