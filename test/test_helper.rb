@@ -7,7 +7,7 @@ require 'pluck_all'
 require 'minitest/autorun'
 
 ActiveRecord::Base.establish_connection(
-  "adapter"  => "sqlite3",
-  "database" => ":memory:"
+  "adapter"  => "mysql2",
+  "database" => "travis_ci_test",
 )
 require_relative 'seeds'
