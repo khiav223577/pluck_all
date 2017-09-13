@@ -14,7 +14,7 @@ ActiveRecord::Schema.define do
     t.string :title
   end
 end
-require 'carrierwave_test_helper'
+require_relative 'carrierwave_test_helper'
 class User < ActiveRecord::Base
   serialize :serialized_attribute, Hash
   mount_uploader :profile_pic, ProfilePictureUploader
