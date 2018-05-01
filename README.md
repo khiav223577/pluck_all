@@ -65,7 +65,7 @@ pluck_all                          3.310000   0.100000   3.410000 (  3.527775)
 
 ### Compare with [pluck_to_hash](https://github.com/girishso/pluck_to_hash) gem
 
-`pluck_all` has better performace since it use raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` use the bulit-in `pluck` method to get `array` data from the raw `hash` data and then manually transfer to `hash` format again. The following benchmark test uses same datebase as above.
+`pluck_all` has better performace since it uses raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` uses `pluck` method, which calls `ActiveRecord::Base.connection.select_all` and transfers the raw `hash` data to `array` format, and then transfer the data to `hash` format again. The following benchmark test uses same datebase as above.
 
 ```rb
                                        user     system      total        real
