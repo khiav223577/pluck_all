@@ -1,22 +1,24 @@
+sudo: false
+env:
+  global:
+    - CC_TEST_REPORTER_ID=db72eba1ff8fb1329dae5fb9b9dcd234243899d7a464ceb374e14a05ead27b7c
 language: ruby
 rvm:
   - 2.2
   - 2.3
-sudo: required
-dist: trusty
-before_install: 
+before_install:
   - gem install bundler
   - gem update --system
   - gem --version
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rake test
 gemfile:
   - gemfiles/3.2.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
   - gemfiles/5.1.gemfile
   - gemfiles/5.2.gemfile
-addons:
-    code_climate:
-        repo_token: db72eba1ff8fb1329dae5fb9b9dcd234243899d7a464ceb374e14a05ead27b7c
-after_success:
-  - bundle exec codeclimate-test-reporter
 
