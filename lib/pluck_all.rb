@@ -1,14 +1,16 @@
-require "pluck_all/version"
+# frozen_string_literal: true
+require 'pluck_all/version'
 require 'active_record'
 
 class ActiveRecord::Base
   if !defined?(attribute_types) && defined?(column_types)
     class << self
-      #Rails 5 把column_types改成attribute_types
+      # column_types was changed to attribute_types in Rails 5
       alias_method :attribute_types, :column_types
     end
   end
 end
+
 module ActiveRecord
   [
     *([Type::Value, Type::Integer, Type::Serialized] if defined?(Type::Value)),
@@ -16,17 +18,18 @@ module ActiveRecord
   ].each do |s|
     s.class_eval do
       if !method_defined?(:deserialize) && method_defined?(:type_cast_from_database)
-        #Rails 5 把 type_cast_from_database 改成 deserialize
+        # column_types was changed to attribute_types in Rails 5
         alias deserialize type_cast_from_database
       end
     end
   end
 end
+
 class ActiveRecord::Relation
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*args)
       result = select_all(*args)
-      result.map! do |attributes| #This map! behaves different to array#map!
+      result.map! do |attributes| # This map! behaves different to array#map!
         initialized_attributes = klass.initialize_attributes(attributes)
         attributes.each do |key, attribute|
           attributes[key] = klass.type_cast_attribute(key, initialized_attributes) #TODO 現在AS過後的type cast會有一點問題
@@ -38,7 +41,7 @@ class ActiveRecord::Relation
     def pluck_all(*args)
       result = select_all(*args)
       attribute_types = klass.attribute_types
-      result.map! do |attributes| #This map! behaves different to array#map!
+      result.map! do |attributes| # This map! behaves different to array#map!
         attributes.each do |key, attribute|
           attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute) #TODO 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
         end
@@ -46,12 +49,15 @@ class ActiveRecord::Relation
       end
     end
   end
+
   def cast_need_columns(column_names, _klass = nil)
     @pluck_all_cast_need_columns = column_names.map(&:to_s)
     @pluck_all_cast_klass = _klass
     return self
   end
-private
+
+  private
+
   def select_all(*args)
     args.map! do |column_name|
       if column_name.is_a?(Symbol) && column_names.include?(column_name.to_s)
@@ -64,9 +70,10 @@ private
     return klass.connection.select_all(relation.select(args).to_sql)
     #return klass.connection.select_all(relation.arel)
   end
-#----------------------------------
-#  Support casting CarrierWave url
-#----------------------------------
+
+  # ----------------------------------------------------------------
+  # ● Support casting CarrierWave url
+  # ----------------------------------------------------------------
   def cast_carrier_wave_uploader_url(attributes)
     if defined?(CarrierWave) && klass.respond_to?(:uploaders)
       @pluck_all_cast_klass ||= klass
@@ -98,15 +105,17 @@ class ActiveRecord::Relation
 end
 
 
-class ActiveRecord::Base
-  def self.cast_need_columns(*args)
-    self.where('').cast_need_columns(*args)
+class << ActiveRecord::Base
+  def cast_need_columns(*args)
+    where('').cast_need_columns(*args)
   end
-  def self.pluck_all(*args)
-    self.where('').pluck_all(*args)
+
+  def pluck_all(*args)
+    where('').pluck_all(*args)
   end
-  def self.pluck_array(*args)
-    self.where('').pluck_array(*args)
+
+  def pluck_array(*args)
+    where('').pluck_array(*args)
   end
 end
 

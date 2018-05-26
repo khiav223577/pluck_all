@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class PluckArrayTest < Minitest::Test
   def setup
-    
+
   end
 
   def test_pluck_one_column
@@ -19,7 +20,7 @@ class PluckArrayTest < Minitest::Test
 
   def test_pluck_serialized_attribute
     assert_equal([
-      {}, 
+      {},
       {:testing => true, :deep => {:deep => :deep}},
     ], User.where(:name => %w(John Pearl)).pluck_array(:serialized_attribute))
   end
