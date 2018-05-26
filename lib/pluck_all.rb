@@ -112,15 +112,15 @@ end
 
 class << ActiveRecord::Base
   def cast_need_columns(*args)
-    where('').cast_need_columns(*args)
+    where(nil).cast_need_columns(*args)
   end
 
   def pluck_all(*args)
-    where('').pluck_all(*args)
+    where(nil).pluck_all(*args)
   end
 
   def pluck_array(*args)
-    where('').pluck_array(*args)
+    where(nil).pluck_array(*args)
   end
 end
 
