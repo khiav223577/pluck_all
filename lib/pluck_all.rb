@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 require 'pluck_all/version'
 require 'active_record'
+begin
+  require 'mongoid'
+  require 'pluck_all/mongoid_pluck_all'
+rescue Gem::LoadError
+end
 
 class ActiveRecord::Base
   if !defined?(attribute_types) && defined?(column_types)
@@ -107,15 +112,15 @@ end
 
 class << ActiveRecord::Base
   def cast_need_columns(*args)
-    where('').cast_need_columns(*args)
+    where(nil).cast_need_columns(*args)
   end
 
   def pluck_all(*args)
-    where('').pluck_all(*args)
+    where(nil).pluck_all(*args)
   end
 
   def pluck_array(*args)
-    where('').pluck_array(*args)
+    where(nil).pluck_array(*args)
   end
 end
 
