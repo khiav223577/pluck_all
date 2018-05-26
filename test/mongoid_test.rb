@@ -3,6 +3,7 @@ require 'mongoid_helper'
 
 class MongoidTest < Minitest::Test
   def test_pluck_none
+    return if not Mongoid::User.respond_to?(:none) # Rails 3 doesn't have #none
     assert_equal([], Mongoid::User.none.pluck(:id, :name))
     assert_equal([], Mongoid::User.none.pluck_all(:id, :name))
   end
