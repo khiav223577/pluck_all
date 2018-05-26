@@ -6,4 +6,13 @@ class MongoidTest < Minitest::Test
     assert_equal([], Mongoid::User.none.pluck(:id, :name))
     assert_equal([], Mongoid::User.none.pluck_all(:id, :name))
   end
+
+  def test_pluck_one_column
+    assert_equal(['Pearl Shi', 'Rumble Huang', 'Khiav Reoy'], Mongoid::User.pluck(:name))
+    assert_equal([
+      {'name' => 'Pearl Shi'},
+      {'name' => 'Rumble Huang'},
+      {'name' => 'Khiav Reoy'},
+    ], Mongoid::User.pluck_all(:name))
+  end
 end
