@@ -6,6 +6,8 @@ language: ruby
 rvm:
   - 2.2
   - 2.3
+services: 
+  - mongodb
 before_install:
   - gem install bundler
   - gem update --system
