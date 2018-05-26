@@ -4,9 +4,18 @@ module Mongoid
   end
 
   module Contextual
+
+    delegate(:pluck_all, to: :context)
+
     class Memory
       def pluck_all(*fields)
         pluck(fields)
+      end
+    end
+
+    class None
+      def pluck_all(*)
+        []
       end
     end
   end
