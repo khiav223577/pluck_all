@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 require 'pluck_all/version'
 require 'active_record'
+begin
+  require 'mongoid'
+  require 'pluck_all/mongoid_pluck_all'
+rescue Gem::LoadError
+end
 
 class ActiveRecord::Base
   if !defined?(attribute_types) && defined?(column_types)
