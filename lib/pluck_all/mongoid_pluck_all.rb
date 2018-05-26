@@ -18,10 +18,9 @@ module Mongoid
     end
 
     class Mongo
-      # @since 3.1.0
       def pluck_array(*fields)
         normalized_select = get_normalized_select(fields)
-        view.projection(normalized_select).reduce([]) do |plucked, doc|
+        get_query_data(normalized_select).reduce([]) do |plucked, doc|
           values = normalized_select.keys.map do |n|
             n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]
           end
@@ -31,7 +30,7 @@ module Mongoid
 
       def pluck_all(*fields)
         normalized_select = get_normalized_select(fields)
-        view.projection(normalized_select).reduce([]) do |plucked, doc|
+        get_query_data(normalized_select).reduce([]) do |plucked, doc|
           values = normalized_select.keys.map do |n|
             [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
           end.to_h
@@ -40,6 +39,10 @@ module Mongoid
       end
 
       private
+
+      def get_query_data(normalized_select)
+        return (@view ? @view.projection(normalized_select) : query.dup.select(normalized_select))
+      end
 
       def get_normalized_select(fields)
         normalized_select = fields.inject({}) do |hash, f|
