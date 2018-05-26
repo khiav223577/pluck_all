@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 Mongoid::User.delete_all
 Mongoid::User.create(name: 'Pearl Shi', age: 18)
 Mongoid::User.create(name: 'Rumble Huang', age: 20)

@@ -1,36 +1,50 @@
+# frozen_string_literal: true
 module Mongoid
   module Findable
-    delegate :pluck_all, to: :with_default_scope
+    delegate :pluck_all, :pluck_array, to: :with_default_scope
   end
 
   module Contextual
-
-    delegate(:pluck_all, to: :context)
-
-    class Memory
-      def pluck_all(*fields)
-        pluck(fields)
-      end
-    end
+    delegate :pluck_all, :pluck_array, to: :context
 
     class None
+      def pluck_array(*)
+        []
+      end
+
       def pluck_all(*)
         []
       end
     end
 
     class Mongo
-      def pluck_all(*fields)
-        normalized_select = fields.inject({}) do |hash, f|
-          hash[klass.database_field_name(f)] = 1
-          hash
+      # @since 3.1.0
+      def pluck_array(*fields)
+        normalized_select = get_normalized_select(fields)
+        view.projection(normalized_select).reduce([]) do |plucked, doc|
+          values = normalized_select.keys.map do |n|
+            n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]
+          end
+          plucked << (values.size == 1 ? values.first : values)
         end
+      end
 
+      def pluck_all(*fields)
+        normalized_select = get_normalized_select(fields)
         view.projection(normalized_select).reduce([]) do |plucked, doc|
           values = normalized_select.keys.map do |n|
             [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
           end.to_h
           plucked << values
+        end
+      end
+
+      private
+
+      def get_normalized_select(fields)
+        normalized_select = fields.inject({}) do |hash, f|
+          hash[klass.database_field_name(f)] = 1
+          hash
         end
       end
     end
