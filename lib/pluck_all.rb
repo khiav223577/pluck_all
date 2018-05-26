@@ -1,4 +1,5 @@
-require "pluck_all/version"
+# frozen_string_literal: true
+require 'pluck_all/version'
 require 'active_record'
 
 class ActiveRecord::Base
