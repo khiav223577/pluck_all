@@ -10,4 +10,5 @@ ActiveRecord::Base.establish_connection(
   "adapter"  => "sqlite3",
   "database" => ":memory:",
 )
-require_relative 'seeds'
+require_relative 'carrierwave_test_helper'
+require_relative 'lib/seeds'

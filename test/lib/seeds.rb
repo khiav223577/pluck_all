@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 ActiveRecord::Schema.define do
   self.verbose = false
 
@@ -14,23 +15,18 @@ ActiveRecord::Schema.define do
     t.string :title
   end
 end
-require_relative 'carrierwave_test_helper'
-class User < ActiveRecord::Base
-  serialize :serialized_attribute, Hash
-  mount_uploader :profile_pic, ProfilePictureUploader
-  mount_uploader :pet_pic, PetPictureUploader
-  has_many :posts
-end
-class Post < ActiveRecord::Base
-  belongs_to :user
-end
+
+ActiveSupport::Dependencies.autoload_paths << File.expand_path('../models/', __FILE__)
+
 users = User.create([
   {:name => 'John', :email => 'john@example.com'},
   {:name => 'Pearl', :email => 'pearl@example.com', :serialized_attribute => {:testing => true, :deep => {:deep => :deep}}},
   {:name => 'Kathenrie', :email => 'kathenrie@example.com'},
 ])
+
 User.where(:name => 'John').update_all(:profile_pic => 'JohnProfile.jpg') # skip carrierwave
 User.where(:name => 'Kathenrie').update_all(:profile_pic => 'Profile.jpg', :pet_pic => 'Pet.png') # skip carrierwave
+
 Post.create([
   {:name => 'post1', :title => "John's post1", :user_id => users[0].id},
   {:name => 'post2', :title => "John's post2", :user_id => users[0].id},
