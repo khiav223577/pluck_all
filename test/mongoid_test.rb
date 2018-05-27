@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-if defined?(Monogoid)
+if defined?(Mongoid)
 
 require 'mongoid_helper'
 
