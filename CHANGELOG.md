@@ -1,5 +1,8 @@
 ## Change Log
 
+### [v2.0.1](https://github.com/khiav223577/pluck_all/compare/v2.0.0...v2.0.1) 2018/05/27
+- [#25](https://github.com/khiav223577/pluck_all/pull/25) Fix that project without mongoid will raise LoadError (@khiav223577)
+
 ### [v2.0.0](https://github.com/khiav223577/pluck_all/compare/v1.2.4...v2.0.0) 2018/05/27
 - [#24](https://github.com/khiav223577/pluck_all/pull/24) Support Mongoid! (@khiav223577)
 - [#23](https://github.com/khiav223577/pluck_all/pull/23) Refactoring Coding Style (@khiav223577)
