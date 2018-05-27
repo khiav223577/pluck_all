@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/khiav223577/pluck_all/badges/gpa.svg)](https://codeclimate.com/github/khiav223577/pluck_all)
 [![Test Coverage](https://codeclimate.com/github/khiav223577/pluck_all/badges/coverage.svg)](https://codeclimate.com/github/khiav223577/pluck_all/coverage)
 
-Pluck multiple columns/attributes in Rails 3, 4, 5, and can return data as hash instead of only array.
+Pluck multiple columns/attributes in Rails 3, 4, 5, and can return data as hash instead of only array. Also supports Mongoid.
 
 This Gem stands on the shoulders of this article: [Plucking Multiple Columns in Rails 3](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/).
 And modified to support not only Rail 3.
