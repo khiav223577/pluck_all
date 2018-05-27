@@ -11,7 +11,7 @@ Pluck multiple columns/attributes in Rails 3, 4, 5, and can return data as hash 
 This Gem stands on the shoulders of this article: [Plucking Multiple Columns in Rails 3](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/).
 And modified to support not only Rail 3.
 
-If you have a Rails 3 project, and want to pluck not only one column, 
+If you have a Rails 3 project, and want to pluck not only one column,
 feel free to use this gem and no need to worry about upgrading to Rails 4, 5 in the future will break this.
 
 
@@ -33,21 +33,45 @@ Or install it yourself as:
     $ gem install pluck_all
 
 ## Usage
+
 ### pluck to array
+
 Behaves the same as the Rails 4 pluck, but you can use it in Rails 3
+
 ```rb
 User.where('id < 3').pluck_array(:id, :account)
 # => [[1, 'account1'], [2, 'account2']]
 ```
+
 ### pluck to hash
+
 Similar to `pluck_array`, but return hash instead.
+
 ```rb
 User.where('id < 3').pluck_all(:id, :account)
-# => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}] 
+# => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}]
 
 User.where('id < 3').pluck_all('id, account AS name')
-# => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}] 
+# => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}]
 ```
+
+## Support Mongoid
+```rb
+class User
+  include Mongoid::Document
+
+  field :name, type: String
+  field :age, type: Integer
+end
+
+User.pluck_all(:name, :age)
+# => [
+#      {'name' => 'Pearl Shi'   , 'age' => 18},
+#      {'name' => 'Rumble Huang', 'age' => 20},
+#      {'name' => 'Khiav Reoy'  , 'age' => 20},
+#    ]
+```
+
 
 ## Benchmark
 ### Compare with `map` and `as_json`
