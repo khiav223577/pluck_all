@@ -6,8 +6,14 @@ language: ruby
 rvm:
   - 2.2
   - 2.3
-services: 
+services:
   - mongodb
+gemfile:
+  - gemfiles/3.2.gemfile
+  - gemfiles/4.2.gemfile
+  - gemfiles/5.0.gemfile
+  - gemfiles/5.1.gemfile
+  - gemfiles/5.2.gemfile
 before_install:
   - gem install bundler
   - gem update --system
@@ -17,10 +23,5 @@ before_install:
   - ./cc-test-reporter before-build
 script:
   - bundle exec rake test
-gemfile:
-  - gemfiles/3.2.gemfile
-  - gemfiles/4.2.gemfile
-  - gemfiles/5.0.gemfile
-  - gemfiles/5.1.gemfile
-  - gemfiles/5.2.gemfile
-
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
