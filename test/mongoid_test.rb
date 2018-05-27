@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+if defined?(Monogoid)
+
 require 'mongoid_helper'
 
 class MongoidTest < Minitest::Test
@@ -33,4 +35,6 @@ class MongoidTest < Minitest::Test
       {'name' => 'Khiav Reoy'},
     ], Mongoid::User.where(age: 20).pluck_all(:name))
   end
+end
+
 end

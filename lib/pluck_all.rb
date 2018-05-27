@@ -4,7 +4,8 @@ require 'active_record'
 begin
   require 'mongoid'
   require 'pluck_all/mongoid_pluck_all'
-rescue Gem::LoadError
+rescue LoadError, Gem::LoadError
+
 end
 
 class ActiveRecord::Base

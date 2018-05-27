@@ -9,6 +9,7 @@ rvm:
 services:
   - mongodb
 gemfile:
+  - gemfiles/no_mongoid.gemfile
   - gemfiles/3.2.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
