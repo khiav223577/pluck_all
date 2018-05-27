@@ -1,6 +1,10 @@
 ## Change Log
 
-### [upcoming](https://github.com/khiav223577/pluck_all/compare/v1.2.4...HEAD) 2018/04/05
+### [v2.0.0](https://github.com/khiav223577/pluck_all/compare/v1.2.4...v2.0.0) 2018/05/27
+- [#24](https://github.com/khiav223577/pluck_all/pull/24) Support Mongoid! (@khiav223577)
+- [#23](https://github.com/khiav223577/pluck_all/pull/23) Refactoring Coding Style (@khiav223577)
+- [#22](https://github.com/khiav223577/pluck_all/pull/22) test Rails 5.2 (@khiav223577)
+- [#21](https://github.com/khiav223577/pluck_all/pull/21) should test both 5.0.x and 5.1.x (@khiav223577)
 - [#20](https://github.com/khiav223577/pluck_all/pull/20) test pluck_all in rails 5.1.x (@khiav223577)
 - [#19](https://github.com/khiav223577/pluck_all/pull/19) add test cases to test `join` with table name and `alias` (@khiav223577)
 
