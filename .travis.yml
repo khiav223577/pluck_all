@@ -9,12 +9,12 @@ rvm:
 services:
   - mongodb
 gemfile:
+  - gemfiles/no_mongoid.gemfile
   - gemfiles/3.2.gemfile
   - gemfiles/4.2.gemfile
   - gemfiles/5.0.gemfile
   - gemfiles/5.1.gemfile
   - gemfiles/5.2.gemfile
-  - gemfiles/5.2.no_mongoid.gemfile
 before_install:
   - gem install bundler
   - gem update --system
