@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 require 'pluck_all/version'
-require 'active_record'
+
 begin
   require 'mongoid'
+  require 'active_record'
   require 'pluck_all/mongoid_pluck_all'
 rescue LoadError, Gem::LoadError
-
 end
 
 class ActiveRecord::Base

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Mongoid::User < ActiveRecord::Base
+class User
   include Mongoid::Document
 
   field :name, type: String

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'carrierwave'
 require 'carrierwave/orm/activerecord'
+
 CarrierWave.root = 'carrier_wave/test'
 class ProfilePictureUploader < CarrierWave::Uploader::Base
   def store_dir
