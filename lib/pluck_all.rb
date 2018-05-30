@@ -1,10 +1,14 @@
 # frozen_string_literal: true
-require 'pluck_all/version'
+require "pluck_all/version"
 
 begin
-  require 'mongoid'
-  require 'active_record'
-  require 'pluck_all/mongoid_pluck_all'
+  require "active_record"
+rescue LoadError, Gem::LoadError
+end
+
+begin
+  require "mongoid"
+  require "pluck_all/mongoid_pluck_all"
 rescue LoadError, Gem::LoadError
 end
 
