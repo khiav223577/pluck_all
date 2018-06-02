@@ -33,8 +33,8 @@ module Mongoid
         get_query_data(normalized_select).reduce([]) do |plucked, doc|
           values = normalized_select.keys.map do |n|
             [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
-          end.to_h
-          plucked << values
+          end
+          plucked << values.to_h
         end
       end
 
@@ -45,9 +45,8 @@ module Mongoid
       end
 
       def get_normalized_select(fields)
-        normalized_select = fields.inject({}) do |hash, f|
+        fields.each_with_object({}) do |f, hash|
           hash[klass.database_field_name(f)] = 1
-          hash
         end
       end
     end
