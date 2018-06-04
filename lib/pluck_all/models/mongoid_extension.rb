@@ -21,9 +21,7 @@ module Mongoid
       def pluck_array(*fields)
         normalized_select = get_normalized_select(fields)
         get_query_data(normalized_select).reduce([]) do |plucked, doc|
-          values = normalized_select.keys.map do |n|
-            n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]
-          end
+          values = normalized_select.keys.map(&plucked_value_mapper(:array))
           plucked << (values.size == 1 ? values.first : values)
         end
       end
@@ -31,23 +29,29 @@ module Mongoid
       def pluck_all(*fields)
         normalized_select = get_normalized_select(fields)
         get_query_data(normalized_select).reduce([]) do |plucked, doc|
-          values = normalized_select.keys.map do |n|
-            [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
-          end.to_h
-          plucked << values
+          values = normalized_select.keys.map(&plucked_value_mapper(:all))
+          plucked << values.to_h
         end
       end
 
       private
 
+      def plucked_value_mapper(type)
+        Proc.new do |n|
+          values = [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
+          case type
+          when :array then values[1]
+          when :all   then values
+          end
+        end
+      end
       def get_query_data(normalized_select)
         return (@view ? @view.projection(normalized_select) : query.dup.select(normalized_select))
       end
 
       def get_normalized_select(fields)
-        normalized_select = fields.inject({}) do |hash, f|
+        fields.each_with_object({}) do |f, hash|
           hash[klass.database_field_name(f)] = 1
-          hash
         end
       end
     end

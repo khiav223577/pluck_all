@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'test_helper'
+require_relative 'active_record_test_helper'
 
-class PluckAllTest < Minitest::Test
+class ActiveRecordPluckAllTest < Minitest::Test
   def test_pluck_with_carrierwave
     assert_equal([
       {'name' => 'Pearl'    , 'profile_pic' => nil},
