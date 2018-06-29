@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 module Mongoid
+  module Document::ClassMethods
+    def pluck_array(*fields)
+      where(nil).pluck_array(*fields)
+    end
+
+    def pluck_all(*fields)
+      where(nil).pluck_all(*fields)
+    end
+  end
+
   module Findable
     delegate :pluck_all, :pluck_array, to: :with_default_scope
   end
