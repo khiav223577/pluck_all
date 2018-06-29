@@ -21,7 +21,7 @@ module Mongoid
       def pluck_array(*fields)
         normalized_select = get_normalized_select(fields)
         get_query_data(normalized_select).reduce([]) do |plucked, doc|
-          values = normalized_select.keys.map(&plucked_value_mapper(:array))
+          values = normalized_select.keys.map(&plucked_value_mapper(:array, doc))
           plucked << (values.size == 1 ? values.first : values)
         end
       end
@@ -29,14 +29,14 @@ module Mongoid
       def pluck_all(*fields)
         normalized_select = get_normalized_select(fields)
         get_query_data(normalized_select).reduce([]) do |plucked, doc|
-          values = normalized_select.keys.map(&plucked_value_mapper(:all))
+          values = normalized_select.keys.map(&plucked_value_mapper(:all, doc))
           plucked << values.to_h
         end
       end
 
       private
 
-      def plucked_value_mapper(type)
+      def plucked_value_mapper(type, doc)
         Proc.new do |n|
           values = [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
           case type
