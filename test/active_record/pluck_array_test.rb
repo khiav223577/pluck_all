@@ -18,6 +18,14 @@ class ActiveRecordPluckArrayTest < Minitest::Test
     ], User.pluck_array(:name, :email))
   end
 
+  def test_pluck_multiple_columns_with_nil_value
+    assert_equal([
+      ["John", nil],
+      ["Pearl", nil],
+      ["Kathenrie", 'Pet.png'],
+    ], User.pluck_array(:name, :pet_pic))
+  end
+
   def test_pluck_serialized_attribute
     assert_equal([
       {},
