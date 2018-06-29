@@ -1,5 +1,10 @@
 ## Change Log
 
+### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.0.1...HEAD) 2018/06/29
+- [#28](https://github.com/khiav223577/pluck_all/pull/28) Fix test cases and the result format may be wrong when plucking multiple columns with nil value may (@khiav223577)
+- [#27](https://github.com/khiav223577/pluck_all/pull/27) [Feature] Mongoid Hooks And Tests Separation (@berniechiu)
+- [#26](https://github.com/khiav223577/pluck_all/pull/26) [FIX] Wrong Module Skipped (@berniechiu)
+
 ### [v2.0.1](https://github.com/khiav223577/pluck_all/compare/v2.0.0...v2.0.1) 2018/05/27
 - [#25](https://github.com/khiav223577/pluck_all/pull/25) Fix that project without mongoid will raise LoadError (@khiav223577)
 
