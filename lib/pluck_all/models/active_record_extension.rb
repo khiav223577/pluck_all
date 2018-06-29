@@ -74,21 +74,17 @@ class ActiveRecord::Relation
     if defined?(CarrierWave) && klass.respond_to?(:uploaders)
       @pluck_all_cast_klass ||= klass
       @pluck_all_uploaders ||= @pluck_all_cast_klass.uploaders.select{|key, uploader| attributes.key?(key.to_s) }
-      @pluck_all_uploaders.each(&pluck_all_uploaders_key_mapper)
-    end
-    return attributes
-  end
-
-  def pluck_all_uploaders_key_mapper
-    Proc.new do |key, uploader|
-      {}.tap do |hash|
-        @pluck_all_cast_need_columns.each{|k| hash[k] = attributes[k] } if @pluck_all_cast_need_columns
-        obj = @pluck_all_cast_klass.new(hash)
-        obj[key] = attributes[key_s = key.to_s]
-        #https://github.com/carrierwaveuploader/carrierwave/blob/87c37b706c560de6d01816f9ebaa15ce1c51ed58/lib/carrierwave/mount.rb#L142
-        attributes[key_s] = obj.send(key)
+      @pluck_all_uploaders.each do |key, uploader|
+        {}.tap do |hash|
+          @pluck_all_cast_need_columns.each{|k| hash[k] = attributes[k] } if @pluck_all_cast_need_columns
+          obj = @pluck_all_cast_klass.new(hash)
+          obj[key] = attributes[key_s = key.to_s]
+          #https://github.com/carrierwaveuploader/carrierwave/blob/87c37b706c560de6d01816f9ebaa15ce1c51ed58/lib/carrierwave/mount.rb#L142
+          attributes[key_s] = obj.send(key)
+        end
       end
     end
+    return attributes
   end
 end
 
