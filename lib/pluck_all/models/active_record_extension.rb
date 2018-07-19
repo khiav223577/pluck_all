@@ -29,9 +29,8 @@ class ActiveRecord::Relation
   end
 
   def select_all(*column_names)
-    relation = spawn
-    relation.select_values = column_names.map{|cn| columns_hash.key?(cn) ? arel_table[cn] : cn }
-    return klass.connection.select_all(relation.arel, nil, relation.arel.bind_values + bind_values)
+    relation = clone
+    return klass.connection.select_all(relation.select(column_names).to_sql)
   end
 
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
