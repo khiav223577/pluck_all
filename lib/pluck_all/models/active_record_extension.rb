@@ -22,6 +22,18 @@ module ActiveRecord
 end
 
 class ActiveRecord::Relation
+  def cast_need_columns(column_names, _klass = nil)
+    @pluck_all_cast_need_columns = column_names.map(&:to_s)
+    @pluck_all_cast_klass = _klass
+    return self
+  end
+
+  def select_all(*column_names)
+    relation = spawn
+    relation.select_values = column_names.map{|cn| columns_hash.key?(cn) ? arel_table[cn] : cn }
+    return klass.connection.select_all(relation.arel, nil, relation.arel.bind_values + bind_values)
+  end
+
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*column_names, cast_uploader_url: true)
       column_names.map!(&to_sql_column_name)
@@ -33,6 +45,18 @@ class ActiveRecord::Relation
         end
         cast_carrier_wave_uploader_url(attributes) if cast_uploader_url
         next attributes
+      end
+    end
+
+    private
+
+    def to_sql_column_name
+      proc do |column_name|
+        if column_name.is_a?(Symbol) && column_names.include?(column_name.to_s)
+          "#{connection.quote_table_name(table_name)}.#{connection.quote_column_name(column_name)}"
+        else
+          column_name.to_s
+        end
       end
     end
   else
@@ -49,30 +73,18 @@ class ActiveRecord::Relation
         next attributes
       end
     end
-  end
 
-  def cast_need_columns(column_names, _klass = nil)
-    @pluck_all_cast_need_columns = column_names.map(&:to_s)
-    @pluck_all_cast_klass = _klass
-    return self
-  end
+    private
 
-  private
-
-  def to_sql_column_name
-    proc do |column_name|
-      if column_name.is_a?(Symbol) && attribute_alias?(column_name)
-        attribute_alias(column_name)
-      else
-        column_name.to_s
+    def to_sql_column_name
+      proc do |column_name|
+        if column_name.is_a?(Symbol) && attribute_alias?(column_name)
+          attribute_alias(column_name)
+        else
+          column_name.to_s
+        end
       end
     end
-  end
-
-  def select_all(*column_names)
-    relation = spawn
-    relation.select_values = column_names.map{|cn| columns_hash.key?(cn) ? arel_table[cn] : cn }
-    return klass.connection.select_all(relation.arel, nil, relation.arel.bind_values + bind_values)
   end
 
   # ----------------------------------------------------------------
