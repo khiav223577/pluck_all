@@ -57,4 +57,9 @@ class ActiveRecordPluckArrayTest < Minitest::Test
       ["Pearl", "Pearl's post2"],
     ], User.joins(:posts).where(:name => 'Pearl').pluck_array(*columns))
   end
+
+  def test_pluck_with_includes
+    posts = Post.includes(:user).where(users: {name: 'Pearl'})
+    assert_equal posts.pluck(:id), posts.pluck_all(:id)
+  end
 end
