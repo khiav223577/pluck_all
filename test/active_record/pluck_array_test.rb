@@ -60,6 +60,6 @@ class ActiveRecordPluckArrayTest < Minitest::Test
 
   def test_pluck_with_includes
     posts = Post.includes(:user).where(users: {name: 'Pearl'})
-    assert_equal posts.pluck(:id), posts.pluck_all(:id)
+    assert_equal posts.pluck(:id), posts.pluck_array(:id)
   end
 end

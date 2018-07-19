@@ -23,8 +23,9 @@ end
 
 class ActiveRecord::Relation
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
-    def pluck_all(*args, cast_uploader_url: true)
-      result = select_all(*args)
+    def pluck_all(*column_names, cast_uploader_url: true)
+      column_names.map!(&to_sql_column_name)
+      result = select_all(*column_names)
       result.map! do |attributes| # This map! behaves different to array#map!
         initialized_attributes = klass.initialize_attributes(attributes)
         attributes.each do |key, attribute|
@@ -35,8 +36,10 @@ class ActiveRecord::Relation
       end
     end
   else
-    def pluck_all(*args, cast_uploader_url: true)
-      result = select_all(*args)
+    def pluck_all(*column_names, cast_uploader_url: true)
+      column_names.map!(&to_sql_column_name)
+      return construct_relation_for_association_calculations.pluck_all(*column_names) if has_include?(column_names.first)
+      result = select_all(*column_names)
       attribute_types = klass.attribute_types
       result.map! do |attributes| # This map! behaves different to array#map!
         attributes.each do |key, attribute|
@@ -56,17 +59,20 @@ class ActiveRecord::Relation
 
   private
 
-  def select_all(*args)
-    args.map! do |column_name|
-      if column_name.is_a?(Symbol) && column_names.include?(column_name.to_s)
-        "#{connection.quote_table_name(table_name)}.#{connection.quote_column_name(column_name)}"
+  def to_sql_column_name
+    proc do |column_name|
+      if column_name.is_a?(Symbol) && attribute_alias?(column_name)
+        attribute_alias(column_name)
       else
         column_name.to_s
       end
     end
-    relation = clone
-    return klass.connection.select_all(relation.select(args).to_sql)
-    #return klass.connection.select_all(relation.arel)
+  end
+
+  def select_all(*column_names)
+    relation = spawn
+    relation.select_values = column_names.map{|cn| columns_hash.key?(cn) ? arel_table[cn] : cn }
+    return klass.connection.select_all(relation.arel, nil, relation.arel.bind_values + bind_values)
   end
 
   # ----------------------------------------------------------------
