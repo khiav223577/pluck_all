@@ -1,5 +1,5 @@
-require_relative 'patch/attribute_types'
-require_relative 'patch/deserialize'
+require_relative 'patches/attribute_types'
+require_relative 'patches/deserialize'
 
 class ActiveRecord::Relation
   def cast_need_columns(column_names, _klass = nil)
