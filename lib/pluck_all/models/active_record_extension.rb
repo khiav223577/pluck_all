@@ -1,25 +1,5 @@
-class ActiveRecord::Base
-  if !defined?(attribute_types) && defined?(column_types)
-    class << self
-      # column_types was changed to attribute_types in Rails 5
-      alias_method :attribute_types, :column_types
-    end
-  end
-end
-
-module ActiveRecord
-  [
-    *([Type::Value, Type::Integer, Type::Serialized] if defined?(Type::Value)),
-    *([Enum::EnumType] if defined?(Enum::EnumType)),
-  ].each do |s|
-    s.class_eval do
-      if !method_defined?(:deserialize) && method_defined?(:type_cast_from_database)
-        # column_types was changed to attribute_types in Rails 5
-        alias deserialize type_cast_from_database
-      end
-    end
-  end
-end
+require_relative 'patch/attribute_types'
+require_relative 'patch/deserialize'
 
 class ActiveRecord::Relation
   def cast_need_columns(column_names, _klass = nil)
