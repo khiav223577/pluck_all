@@ -57,7 +57,9 @@ class ActiveRecord::Relation
 
     def to_sql_column_name
       proc do |column_name|
-        if column_name.is_a?(Symbol) && attribute_alias?(column_name)
+        if column_name.is_a?(Arel::Attributes::Attribute)
+          "#{column_name.relation.name}.#{column_name.name}"
+        elsif column_name.is_a?(Symbol) && attribute_alias?(column_name)
           attribute_alias(column_name)
         else
           column_name.to_s
