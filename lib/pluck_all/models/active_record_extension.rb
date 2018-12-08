@@ -31,7 +31,9 @@ class ActiveRecord::Relation
 
     def to_sql_column_name
       proc do |column_name|
-        if column_name.is_a?(Symbol) && column_names.include?(column_name.to_s)
+        if column_name.is_a?(Arel::Attributes::Attribute)
+          "#{column_name.relation.name}.#{column_name.name}"
+        elsif column_name.is_a?(Symbol) && column_names.include?(column_name.to_s)
           "#{connection.quote_table_name(table_name)}.#{connection.quote_column_name(column_name)}"
         else
           column_name.to_s
@@ -57,7 +59,9 @@ class ActiveRecord::Relation
 
     def to_sql_column_name
       proc do |column_name|
-        if column_name.is_a?(Symbol) && attribute_alias?(column_name)
+        if column_name.is_a?(Arel::Attributes::Attribute)
+          "#{column_name.relation.name}.#{column_name.name}"
+        elsif column_name.is_a?(Symbol) && attribute_alias?(column_name)
           attribute_alias(column_name)
         else
           column_name.to_s

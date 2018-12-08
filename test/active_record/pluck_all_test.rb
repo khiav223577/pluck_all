@@ -23,6 +23,14 @@ class ActiveRecordPluckAllTest < Minitest::Test
     ], User.pluck_all(:name, :email))
   end
 
+  def test_pluck_multiple_columns_as_arel_nodes
+    assert_equal([
+      {'name' => 'John', 'email' => 'john@example.com'},
+      {'name' => 'Pearl', 'email' => 'pearl@example.com'},
+      {'name' => 'Kathenrie', 'email' => 'kathenrie@example.com'},
+    ], User.pluck_all(User.arel_table[:name], User.arel_table[:email]))
+  end
+
   def test_pluck_with_join
     assert_equal([
       {'name' => 'John', 'title' => "John's post1"},
