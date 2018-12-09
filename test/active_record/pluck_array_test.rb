@@ -58,10 +58,9 @@ class ActiveRecordPluckArrayTest < Minitest::Test
     ], User.joins(:posts).where(:name => 'Pearl').pluck_array(*columns))
   end
 
-  if Gem::Version.new(ActiveRecord::VERSION::STRING) >= Gem::Version.new('4.0.0') # Rails 3's includes + pluck will not become left outer joins
-    def test_pluck_with_includes
-      posts = Post.includes(:user).where(users: {name: 'Pearl'})
-      assert_equal posts.pluck(:id), posts.pluck_array(:id)
-    end
+  def test_pluck_with_includes
+    skip if ActiveRecord::VERSION::MAJOR < 4 # Rails 3's includes + pluck will not become left outer joins
+    posts = Post.includes(:user).where(users: {name: 'Pearl'})
+    assert_equal posts.pluck(:id), posts.pluck_array(:id)
   end
 end
