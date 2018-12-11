@@ -1,7 +1,4 @@
 sudo: false
-env:
-  global:
-    - CC_TEST_REPORTER_ID=db72eba1ff8fb1329dae5fb9b9dcd234243899d7a464ceb374e14a05ead27b7c
 language: ruby
 rvm:
   - 2.2
@@ -9,8 +6,11 @@ rvm:
 services:
   - mongodb
 env:
-  - ORM_TYPE=ACTIVE_RECORD
-  - ORM_TYPE=MONGOID
+  global:
+    - CC_TEST_REPORTER_ID=db72eba1ff8fb1329dae5fb9b9dcd234243899d7a464ceb374e14a05ead27b7c
+  matrix:
+    - ORM_TYPE=ACTIVE_RECORD
+    - ORM_TYPE=MONGOID
 gemfile:
   - gemfiles/active_record_32.gemfile
   - gemfiles/active_record_42.gemfile
