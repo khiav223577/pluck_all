@@ -1,5 +1,11 @@
 ## Change Log
 
+### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.0.3...HEAD) 2018/12/21
+- [#35](https://github.com/khiav223577/pluck_all/pull/35) refactor #test_pluck_with_includes (@khiav223577)
+- [#34](https://github.com/khiav223577/pluck_all/pull/34) Provide Arel support as well (@snkashis)
+- [#33](https://github.com/khiav223577/pluck_all/pull/33) Fix gemfile path in bin/setup (@snkashis)
+- [#32](https://github.com/khiav223577/pluck_all/pull/32) Move patches into separate files (@khiav223577)
+
 ### [v2.0.3](https://github.com/khiav223577/pluck_all/compare/v2.0.2...v2.0.3) 2018/07/19
 - [#30](https://github.com/khiav223577/pluck_all/pull/30) Fix: includes + pluck_all results in strange output (@khiav223577)
 
@@ -49,6 +55,6 @@
 ### [v1.1.0](https://github.com/khiav223577/pluck_all/compare/v1.0.1...v1.1.0) 2016/12/21
 - [#3](https://github.com/khiav223577/pluck_all/pull/3) Feature/pluck array (@khiav223577)
 
-### v1.0.1 2016/12/20
+### [v1.0.1](https://github.com/khiav223577/pluck_all/compare/v1.0.0...v1.0.1) 2016/12/20
 - [#2](https://github.com/khiav223577/pluck_all/pull/2) test with multiple rails version (@khiav223577)
 - [#1](https://github.com/khiav223577/pluck_all/pull/1) add basic test cases (@khiav223577)
