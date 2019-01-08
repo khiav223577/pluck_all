@@ -2,11 +2,10 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in pluck_all.gemspec
 
-gem "mongoid", "~> 7.0.0"
+gem 'mongoid', '~> 7.0.0'
 
 group :test do
-  gem "simplecov"
+  gem 'simplecov'
 end
 
-gemspec :path => "../"
-
+gemspec path: '../'

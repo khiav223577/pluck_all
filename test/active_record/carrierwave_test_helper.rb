@@ -8,7 +8,6 @@ class ProfilePictureUploader < CarrierWave::Uploader::Base
     return "/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.name}"
   end
   version :tiny do
-
   end
 end
 class PetPictureUploader < CarrierWave::Uploader::Base

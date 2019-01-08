@@ -47,7 +47,7 @@ module Mongoid
       private
 
       def plucked_value_mapper(type, doc)
-        Proc.new do |n|
+        proc do |n|
           values = [n, n =~ /\./ ? doc[n.partition('.')[0]] : doc[n]]
           case type
           when :array then values[1]
@@ -55,6 +55,7 @@ module Mongoid
           end
         end
       end
+
       def get_query_data(normalized_select)
         return (@view ? @view.projection(normalized_select) : query.dup.select(normalized_select))
       end
