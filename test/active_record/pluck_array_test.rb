@@ -59,7 +59,7 @@ class ActiveRecordPluckArrayTest < Minitest::Test
 
   def test_pluck_with_includes
     skip if ActiveRecord::VERSION::MAJOR < 4 # Rails 3's includes + pluck will not become left outer joins
-    posts = Post.includes(:user).where(users: { name: 'Pearl' })
-    assert_equal posts.pluck(:id), posts.pluck_array(:id)
+    posts = Post.includes(:user)
+    assert_equal posts.pluck('users.name'), posts.pluck_array('users.name')
   end
 end
