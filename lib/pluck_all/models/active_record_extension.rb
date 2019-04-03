@@ -43,7 +43,10 @@ class ActiveRecord::Relation
   else
     def pluck_all(*column_names, cast_uploader_url: true)
       column_names.map!(&to_sql_column_name)
-      return construct_relation_for_association_calculations.pluck_all(*column_names) if has_include?(column_names.first)
+      if has_include?(column_names.first)
+        relation = apply_join_dependency
+        return relation.pluck(*column_names)
+      end
       result = select_all(*column_names)
       attribute_types = klass.attribute_types
       result.map! do |attributes| # This map! behaves different to array#map!
