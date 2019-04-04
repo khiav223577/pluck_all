@@ -34,4 +34,5 @@ Post.create([
   { name: 'post4', title: "Pearl's post1", user_id: users[1].id },
   { name: 'post5', title: "Pearl's post2", user_id: users[1].id },
   { name: 'post6', title: "Kathenrie's post1", user_id: users[2].id },
+  { name: 'post6', title: "no owner post" },
 ])

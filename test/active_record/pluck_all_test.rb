@@ -76,4 +76,10 @@ class ActiveRecordPluckAllTest < Minitest::Test
       { 'user_name' => 'Pearl', 'post_title' => "Pearl's post2" },
     ], User.joins(:posts).where('name': 'Pearl').pluck_all(:'users.name AS user_name', :'title AS post_title'))
   end
+
+  def test_pluck_with_includes
+    skip if ActiveRecord::VERSION::MAJOR < 4 # Rails 3's includes + pluck will not become left outer joins
+    posts = Post.includes(:user)
+    assert_equal posts.pluck('users.name'), posts.pluck_all('users.name').map{|s| s['name'] }
+  end
 end
