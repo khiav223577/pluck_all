@@ -62,4 +62,14 @@ class ActiveRecordPluckArrayTest < Minitest::Test
     posts = Post.includes(:user)
     assert_equal posts.pluck('users.name'), posts.pluck_array('users.name')
   end
+
+  def test_pluck_with_select_and_string_args
+    posts = Post.select('posts.name').joins(:user)
+    assert_equal posts.pluck('users.name'), posts.pluck_array('users.name')
+  end
+
+  def test_pluck_with_select_and_symbol_args
+    posts = Post.select(:title).joins(:user)
+    assert_equal posts.pluck(:email), posts.pluck_array(:email)
+  end
 end

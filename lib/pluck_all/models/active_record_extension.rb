@@ -10,6 +10,7 @@ class ActiveRecord::Relation
 
   def select_all(*column_names)
     relation = clone
+    relation.select_values = [].freeze # cannot use `unscope(:select)` in Rails 3
     return klass.connection.select_all(relation.select(column_names).to_sql)
   end
 
