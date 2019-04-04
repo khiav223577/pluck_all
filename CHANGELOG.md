@@ -1,6 +1,9 @@
 ## Change Log
 
-### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.0.3...HEAD) 2018/12/21
+### [v2.0.4](https://github.com/khiav223577/pluck_all/compare/v2.0.3...v2.0.4) 2019/04/04
+- [#40](https://github.com/khiav223577/pluck_all/pull/40) Fix: inconsistent with pluck when having `select` on relation (@khiav223577)
+- [#39](https://github.com/khiav223577/pluck_all/pull/39) Fix issue#38 (@MasashiYokota)
+- [#36](https://github.com/khiav223577/pluck_all/pull/36) Fix: broken test cases after bundler 2.0 was released (@khiav223577)
 - [#35](https://github.com/khiav223577/pluck_all/pull/35) refactor #test_pluck_with_includes (@khiav223577)
 - [#34](https://github.com/khiav223577/pluck_all/pull/34) Provide Arel support as well (@snkashis)
 - [#33](https://github.com/khiav223577/pluck_all/pull/33) Fix gemfile path in bin/setup (@snkashis)
