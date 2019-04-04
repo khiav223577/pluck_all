@@ -45,7 +45,7 @@ class ActiveRecord::Relation
       column_names.map!(&to_sql_column_name)
       if has_include?(column_names.first)
         relation = apply_join_dependency
-        return relation.pluck(*column_names)
+        return relation.pluck_all(*column_names)
       end
       result = select_all(*column_names)
       attribute_types = klass.attribute_types
