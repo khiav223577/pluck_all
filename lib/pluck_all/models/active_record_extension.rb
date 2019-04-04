@@ -10,7 +10,8 @@ class ActiveRecord::Relation
 
   def select_all(*column_names)
     relation = clone
-    return klass.connection.select_all(relation.unscope(:select).select(column_names).to_sql)
+    relation.select_values = [].freeze # cannot use `unscope(:select)` in Rails 3
+    return klass.connection.select_all(relation.select(column_names).to_sql)
   end
 
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
