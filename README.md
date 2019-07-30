@@ -85,6 +85,25 @@ select + map                      10.530000   0.660000  11.190000 ( 12.550974)
 select + as_json                  49.040000   1.120000  50.160000 ( 55.417534)
 pluck_all                          3.310000   0.100000   3.410000 (  3.527775)
 ```
+Test by `benchmark-ips` and `limit 100` in each iteration:
+```
+Warming up --------------------------------------
+                 map     1.000  i/100ms
+        select + map    28.000  i/100ms
+    select + as_json     7.000  i/100ms
+           pluck_all    54.000  i/100ms
+Calculating -------------------------------------
+                 map     14.230  (± 0.0%) i/s -     72.000  in   5.065349s
+        select + map    281.638  (± 4.6%) i/s -      1.428k in   5.081216s
+    select + as_json     73.241  (± 4.1%) i/s -    371.000  in   5.076235s
+           pluck_all    539.057  (± 6.7%) i/s -      2.700k in   5.034858s
+
+Comparison:
+           pluck_all:      539.1 i/s
+        select + map:      281.6 i/s - 1.91x  slower
+    select + as_json:       73.2 i/s - 7.36x  slower
+                 map:       14.2 i/s - 37.88x  slower
+```
 [test script](https://github.com/khiav223577/pluck_all/issues/18)
 
 ### Compare with [pluck_to_hash](https://github.com/girishso/pluck_to_hash) gem
@@ -95,6 +114,19 @@ pluck_all                          3.310000   0.100000   3.410000 (  3.527775)
                                        user     system      total        real
 pluck_to_hash                      2.960000   0.130000   3.090000 (  3.421640)
 pluck_all                          2.160000   0.120000   2.280000 (  2.605118)
+```
+Test by `benchmark-ips` and `limit 1000` in each iteration:
+```
+Warming up --------------------------------------
+       pluck_to_hash     7.000  i/100ms
+           pluck_all     9.000  i/100ms
+Calculating -------------------------------------
+       pluck_to_hash     84.526  (± 4.7%) i/s -    427.000  in   5.065792s
+           pluck_all     95.133  (± 4.2%) i/s -    477.000  in   5.021555s
+
+Comparison:
+           pluck_all:       95.1 i/s
+       pluck_to_hash:       84.5 i/s - 1.13x  slower
 ```
 [test script](https://github.com/khiav223577/pluck_all/issues/18#issuecomment-325407080)
 
