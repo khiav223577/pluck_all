@@ -36,7 +36,7 @@ Or install it yourself as:
 
 ### pluck to array
 
-Behaves the same as the Rails 4 pluck, but you can use it in Rails 3
+Behaves the same as `#pluck` method, but you can use it to pluck multiple columns in Rails 3
 
 ```rb
 User.where('id < 3').pluck_array(:id, :account)
@@ -45,11 +45,14 @@ User.where('id < 3').pluck_array(:id, :account)
 
 ### pluck to hash
 
-Similar to `pluck_array`, but return hash instead.
+Similar to `#pluck` method, but return array of hashes instead.
 
 ```rb
 User.where('id < 3').pluck_all(:id, :account)
 # => [{"id"=>1, "account"=>"account1"}, {"id"=>2, "account"=>"account2"}]
+
+User.where('id < 3').pluck_all(:id, 'account AS name')
+# => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}]
 
 User.where('id < 3').pluck_all('id, account AS name')
 # => [{"id"=>1, "name"=>"account1"}, {"id"=>2, "name"=>"account2"}]
