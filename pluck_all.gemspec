@@ -26,6 +26,13 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = spec.files.grep(%r{^exe/}){|f| File.basename(f) }
   spec.require_paths = ['lib']
+  spec.metadata      = {
+    'homepage_uri'      => 'https://github.com/khiav223577/pluck_all',
+    'changelog_uri'     => 'https://github.com/khiav223577/pluck_all/blob/master/CHANGELOG.md',
+    'source_code_uri'   => 'https://github.com/khiav223577/pluck_all',
+    'documentation_uri' => 'https://www.rubydoc.info/gems/pluck_all',
+    'bug_tracker_uri'   => 'https://github.com/khiav223577/pluck_all/issues',
+  }
 
   spec.add_dependency 'activesupport', '>= 3.0.0'
 
