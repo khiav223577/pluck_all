@@ -25,6 +25,8 @@ matrix:
   exclude:
     - gemfile: gemfiles/active_record_32.gemfile
       env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_32.gemfile
+      rvm: 2.6
     - gemfile: gemfiles/active_record_42.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_50.gemfile
