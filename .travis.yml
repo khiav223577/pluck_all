@@ -2,7 +2,7 @@ sudo: false
 language: ruby
 rvm:
   - 2.2
-  - 2.3
+  - 2.6
 services:
   - mongodb
 env:
@@ -17,6 +17,7 @@ gemfile:
   - gemfiles/active_record_50.gemfile
   - gemfiles/active_record_51.gemfile
   - gemfiles/active_record_52.gemfile
+  - gemfiles/active_record_60.gemfile
   - gemfiles/mongoid_54.gemfile
   - gemfiles/mongoid_64.gemfile
   - gemfiles/mongoid_70.gemfile
@@ -24,6 +25,8 @@ matrix:
   exclude:
     - gemfile: gemfiles/active_record_32.gemfile
       env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_32.gemfile
+      rvm: 2.6
     - gemfile: gemfiles/active_record_42.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_50.gemfile
@@ -32,6 +35,10 @@ matrix:
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_52.gemfile
       env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_60.gemfile
+      env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_60.gemfile
+      rvm: 2.2
     - gemfile: gemfiles/mongoid_54.gemfile
       env: ORM_TYPE=ACTIVE_RECORD
     - gemfile: gemfiles/mongoid_64.gemfile
