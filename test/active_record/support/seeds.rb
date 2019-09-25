@@ -21,11 +21,11 @@ ActiveSupport::Dependencies.autoload_paths << File.expand_path('../models/', __F
 users = User.create([
   { name: 'John', email: 'john@example.com' },
   { name: 'Pearl', email: 'pearl@example.com', serialized_attribute: { testing: true, deep: { deep: :deep }}},
-  { name: 'Kathenrie', email: 'kathenrie@example.com' },
+  { name: 'Doggy', email: 'kathenrie@example.com' },
 ])
 
 User.where(name: 'John').update_all(profile_pic: 'JohnProfile.jpg') # skip carrierwave
-User.where(name: 'Kathenrie').update_all(profile_pic: 'Profile.jpg', pet_pic: 'Pet.png') # skip carrierwave
+User.where(name: 'Doggy').update_all(profile_pic: 'Profile.jpg', pet_pic: 'Pet.png') # skip carrierwave
 
 Post.create([
   { name: 'post1', title: "John's post1", user_id: users[0].id },
@@ -33,6 +33,6 @@ Post.create([
   { name: 'post3', title: "John's post3", user_id: users[0].id },
   { name: 'post4', title: "Pearl's post1", user_id: users[1].id },
   { name: 'post5', title: "Pearl's post2", user_id: users[1].id },
-  { name: 'post6', title: "Kathenrie's post1", user_id: users[2].id },
+  { name: 'post6', title: "Doggy's post1", user_id: users[2].id },
   { name: 'post6', title: "no owner post" },
 ])

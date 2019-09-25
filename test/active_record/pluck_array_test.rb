@@ -6,14 +6,14 @@ class ActiveRecordPluckArrayTest < Minitest::Test
   end
 
   def test_pluck_one_column
-    assert_equal(%w[John Pearl Kathenrie], User.pluck_array(:name))
+    assert_equal(%w[John Pearl Doggy], User.pluck_array(:name))
   end
 
   def test_pluck_multiple_columns
     assert_equal([
       ['John', 'john@example.com'],
       ['Pearl', 'pearl@example.com'],
-      ['Kathenrie', 'kathenrie@example.com'],
+      ['Doggy', 'kathenrie@example.com'],
     ], User.pluck_array(:name, :email))
   end
 
@@ -21,7 +21,7 @@ class ActiveRecordPluckArrayTest < Minitest::Test
     assert_equal([
       ['John', nil],
       ['Pearl', nil],
-      ['Kathenrie', 'Pet.png'],
+      ['Doggy', 'Pet.png'],
     ], User.pluck_array(:name, :pet_pic))
   end
 

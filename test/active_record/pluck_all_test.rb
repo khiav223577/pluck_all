@@ -12,14 +12,14 @@ class ActiveRecordPluckAllTest < Minitest::Test
   end
 
   def test_pluck_one_column
-    assert_equal([{ 'name' => 'John' }, { 'name' => 'Pearl' }, { 'name' => 'Kathenrie' }], User.pluck_all(:name))
+    assert_equal([{ 'name' => 'John' }, { 'name' => 'Pearl' }, { 'name' => 'Doggy' }], User.pluck_all(:name))
   end
 
   def test_pluck_multiple_columns
     assert_equal([
       { 'name' => 'John', 'email' => 'john@example.com' },
       { 'name' => 'Pearl', 'email' => 'pearl@example.com' },
-      { 'name' => 'Kathenrie', 'email' => 'kathenrie@example.com' },
+      { 'name' => 'Doggy', 'email' => 'kathenrie@example.com' },
     ], User.pluck_all(:name, :email))
   end
 
@@ -27,7 +27,7 @@ class ActiveRecordPluckAllTest < Minitest::Test
     assert_equal([
       { 'name' => 'John', 'email' => 'john@example.com' },
       { 'name' => 'Pearl', 'email' => 'pearl@example.com' },
-      { 'name' => 'Kathenrie', 'email' => 'kathenrie@example.com' },
+      { 'name' => 'Doggy', 'email' => 'kathenrie@example.com' },
     ], User.pluck_all(User.arel_table[:name], User.arel_table[:email]))
   end
 

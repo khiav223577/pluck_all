@@ -5,14 +5,14 @@ class ActiveRecordPluckAllTest < Minitest::Test
   def test_pluck_with_carrierwave
     assert_equal([
       { 'name' => 'Pearl', 'profile_pic' => nil },
-      { 'name' => 'Kathenrie', 'profile_pic' => '/uploads/user/profile_pic/Kathenrie/Profile.jpg' },
-    ], User.where(name: %w[Pearl Kathenrie]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
+      { 'name' => 'Doggy', 'profile_pic' => '/uploads/user/profile_pic/Doggy/Profile.jpg' },
+    ], User.where(name: %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
       s['profile_pic'] = s['profile_pic'].url
     end)
     assert_equal([
       { 'name' => 'Pearl', 'profile_pic' => nil },
-      { 'name' => 'Kathenrie', 'profile_pic' => '/uploads/user/profile_pic/Kathenrie/tiny_Profile.jpg' },
-    ], User.where(name: %w[Pearl Kathenrie]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
+      { 'name' => 'Doggy', 'profile_pic' => '/uploads/user/profile_pic/Doggy/tiny_Profile.jpg' },
+    ], User.where(name: %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
       s['profile_pic'] = s['profile_pic'].tiny.url
     end)
   end
@@ -21,7 +21,7 @@ class ActiveRecordPluckAllTest < Minitest::Test
     assert_equal([
       { 'name' => 'John', 'profile_pic' => '/uploads/user/profile_pic/John/JohnProfile.jpg', 'pet_pic' => nil },
       { 'name' => 'Pearl', 'profile_pic' => nil, 'pet_pic' => nil },
-      { 'name' => 'Kathenrie', 'profile_pic' => '/uploads/user/profile_pic/Kathenrie/Profile.jpg', 'pet_pic' => '/uploads/user/pet_pic/Kathenrie/Pet.png' },
+      { 'name' => 'Doggy', 'profile_pic' => '/uploads/user/profile_pic/Doggy/Profile.jpg', 'pet_pic' => '/uploads/user/pet_pic/Doggy/Pet.png' },
     ], User.cast_need_columns(%i[name]).pluck_all(:name, :profile_pic, :pet_pic).each do |s|
       s['profile_pic'] = s['profile_pic'].url
       s['pet_pic'] = s['pet_pic'].url
@@ -32,16 +32,16 @@ class ActiveRecordPluckAllTest < Minitest::Test
     const = Object.send(:remove_const, :CarrierWave)
     assert_equal([
       { 'name' => 'Pearl', 'profile_pic' => nil },
-      { 'name' => 'Kathenrie', 'profile_pic' => 'Profile.jpg' },
-    ], User.where(name: %w[Pearl Kathenrie]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic))
+      { 'name' => 'Doggy', 'profile_pic' => 'Profile.jpg' },
+    ], User.where(name: %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic))
     Object.const_set(:CarrierWave, const)
   end
 
   def test_pluck_without_cast_need_columns
     assert_equal([
       { 'name' => 'Pearl', 'pet_pic' => nil },
-      { 'name' => 'Kathenrie', 'pet_pic' => '/uploads/user/pet_pic/Pet.png' },
-    ], User.where(name: %w[Pearl Kathenrie]).pluck_all(:name, :pet_pic).each do |s|
+      { 'name' => 'Doggy', 'pet_pic' => '/uploads/user/pet_pic/Pet.png' },
+    ], User.where(name: %w[Pearl Doggy]).pluck_all(:name, :pet_pic).each do |s|
       s['pet_pic'] = s['pet_pic'].url
     end)
   end
@@ -50,13 +50,13 @@ class ActiveRecordPluckAllTest < Minitest::Test
     excepted = [
       { 'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post4' },
       { 'name' => 'Pearl', 'profile_pic' => nil, 'post_name' => 'post5' },
-      { 'name' => 'Kathenrie', 'profile_pic' => '/uploads/user/profile_pic/Kathenrie/Profile.jpg', 'post_name' => 'post6' },
+      { 'name' => 'Doggy', 'profile_pic' => '/uploads/user/profile_pic/Doggy/Profile.jpg', 'post_name' => 'post6' },
     ]
     attributes = [:'users.name AS name', :'posts.name AS post_name', :profile_pic]
-    assert_equal(excepted, User.joins(:posts).where('users.name': %w[Pearl Kathenrie]).cast_need_columns(%i[name]).pluck_all(*attributes).each do |s|
+    assert_equal(excepted, User.joins(:posts).where('users.name': %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(*attributes).each do |s|
       s['profile_pic'] = s['profile_pic'].url
     end)
-    assert_equal(excepted, Post.joins(:user).where('users.name': %w[Pearl Kathenrie]).cast_need_columns(%i[name], User).pluck_all(*attributes).each do |s|
+    assert_equal(excepted, Post.joins(:user).where('users.name': %w[Pearl Doggy]).cast_need_columns(%i[name], User).pluck_all(*attributes).each do |s|
       s['profile_pic'] = s['profile_pic'].url
     end)
   end
