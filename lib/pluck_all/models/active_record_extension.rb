@@ -1,4 +1,4 @@
-require_relative 'patches/attribute_types'
+require 'rails_compatibility/attribute_types'
 require_relative 'patches/deserialize'
 
 class ActiveRecord::Relation
@@ -50,7 +50,7 @@ class ActiveRecord::Relation
         return relation.pluck_all(*column_names)
       end
       result = select_all(*column_names)
-      attribute_types = klass.attribute_types
+      attribute_types = RailsCompatibility.attribute_types(klass)
       result.map! do |attributes| # This map! behaves different to array#map!
         attributes.each do |key, attribute|
           attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute) # TODO: 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
