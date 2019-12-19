@@ -1,5 +1,9 @@
 ## Change Log
 
+### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.0.4...HEAD) 2019/12/19
+- [#43](https://github.com/khiav223577/pluck_all/pull/43) Use rails_compatibility to get attribute_types for better compatibility (@khiav223577)
+- [#41](https://github.com/khiav223577/pluck_all/pull/41) Support Rails 6.0 (@khiav223577)
+
 ### [v2.0.4](https://github.com/khiav223577/pluck_all/compare/v2.0.3...v2.0.4) 2019/04/04
 - [#40](https://github.com/khiav223577/pluck_all/pull/40) Fix: inconsistent with pluck when having `select` on relation (@khiav223577)
 - [#39](https://github.com/khiav223577/pluck_all/pull/39) Fix issue#38 (@MasashiYokota)
