@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
   mount_uploader :profile_pic, ProfilePictureUploader
   mount_uploader :pet_pic, PetPictureUploader
   has_many :posts
+
+  alias_attribute :nickname, :name
 end
