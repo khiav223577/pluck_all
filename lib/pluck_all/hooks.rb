@@ -1,18 +1,21 @@
 module PluckAll
   class Hooks
-    def self.init
-      # ActiveRecord
-      begin
-        require 'active_record'
-        require 'pluck_all/models/active_record_extension'
-      rescue LoadError, Gem::LoadError
+    class << self
+
+      def init
+        require 'pluck_all/models/active_record_extension' if require_if_exists('active_record')
+        require 'pluck_all/models/mongoid_extension' if require_if_exists('mongoid')
       end
 
-      # Mongoid
-      begin
-        require 'mongoid'
-        require 'pluck_all/models/mongoid_extension'
-      rescue LoadError, Gem::LoadError
+      private
+
+      def require_if_exists(path)
+        begin
+          require path
+          return true
+        rescue LoadError, Gem::LoadError
+          return false
+        end
       end
     end
   end
