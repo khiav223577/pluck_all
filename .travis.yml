@@ -3,6 +3,7 @@ language: ruby
 rvm:
   - 2.2
   - 2.6
+  - 2.7
 services:
   - mongodb
 env:
@@ -24,9 +25,13 @@ gemfile:
 matrix:
   exclude:
     - gemfile: gemfiles/active_record_32.gemfile
-      env: ORM_TYPE=MONGOID
-    - gemfile: gemfiles/active_record_32.gemfile
       rvm: 2.6
+    - gemfile: gemfiles/active_record_32.gemfile
+      rvm: 2.7
+    - gemfile: gemfiles/active_record_32.gemfile
+      env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_42.gemfile
+      rvm: 2.7
     - gemfile: gemfiles/active_record_42.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_50.gemfile
@@ -36,9 +41,11 @@ matrix:
     - gemfile: gemfiles/active_record_52.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_60.gemfile
-      env: ORM_TYPE=MONGOID
-    - gemfile: gemfiles/active_record_60.gemfile
       rvm: 2.2
+    - gemfile: gemfiles/active_record_60.gemfile
+      env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/mongoid_54.gemfile
+      rvm: 2.7
     - gemfile: gemfiles/mongoid_54.gemfile
       env: ORM_TYPE=ACTIVE_RECORD
     - gemfile: gemfiles/mongoid_64.gemfile
@@ -46,8 +53,10 @@ matrix:
     - gemfile: gemfiles/mongoid_70.gemfile
       env: ORM_TYPE=ACTIVE_RECORD
 before_install:
-  - gem i rubygems-update -v '<3' && update_rubygems
-  - gem install bundler -v 1.17.3
+  - if [`ruby -e 'exit(RUBY_VERSION.to_f < 2.7)'`]; then
+      gem i rubygems-update -v '< 3' && update_rubygems;
+      gem install bundler -v '< 2';
+    fi
   - gem --version
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
