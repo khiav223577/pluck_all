@@ -3,6 +3,7 @@ language: ruby
 rvm:
   - 2.2
   - 2.6
+  - 2.7
 services:
   - mongodb
 env:
@@ -27,6 +28,8 @@ matrix:
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_32.gemfile
       rvm: 2.6
+    - gemfile: gemfiles/active_record_32.gemfile
+      rvm: 2.7
     - gemfile: gemfiles/active_record_42.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_50.gemfile
