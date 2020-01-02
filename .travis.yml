@@ -25,10 +25,12 @@ gemfile:
 matrix:
   exclude:
     - gemfile: gemfiles/active_record_32.gemfile
-      env: ORM_TYPE=MONGOID
-    - gemfile: gemfiles/active_record_32.gemfile
       rvm: 2.6
     - gemfile: gemfiles/active_record_32.gemfile
+      rvm: 2.7
+    - gemfile: gemfiles/active_record_32.gemfile
+      env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_42.gemfile
       rvm: 2.7
     - gemfile: gemfiles/active_record_42.gemfile
       env: ORM_TYPE=MONGOID
@@ -39,9 +41,11 @@ matrix:
     - gemfile: gemfiles/active_record_52.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/active_record_60.gemfile
-      env: ORM_TYPE=MONGOID
-    - gemfile: gemfiles/active_record_60.gemfile
       rvm: 2.2
+    - gemfile: gemfiles/active_record_60.gemfile
+      env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/mongoid_54.gemfile
+      rvm: 2.7
     - gemfile: gemfiles/mongoid_54.gemfile
       env: ORM_TYPE=ACTIVE_RECORD
     - gemfile: gemfiles/mongoid_64.gemfile
