@@ -80,16 +80,16 @@ class ActiveRecordPluckAllTest < Minitest::Test
   def test_pluck_with_includes
     skip if ActiveRecord::VERSION::MAJOR < 4 # Rails 3's includes + pluck will not become left outer joins
     posts = Post.includes(:user)
-    assert_equal posts.pluck('users.name').map{|s| { 'name' => s }}, posts.pluck_all('users.name')
+    assert_equal posts.pluck('users.name').map{|s| { 'name' => s } }, posts.pluck_all('users.name')
   end
 
   def test_pluck_with_select_and_string_args
     posts = Post.select('posts.name').joins(:user)
-    assert_equal posts.pluck('users.name').map{|s| { 'name' => s }}, posts.pluck_all('users.name')
+    assert_equal posts.pluck('users.name').map{|s| { 'name' => s } }, posts.pluck_all('users.name')
   end
 
   def test_pluck_with_select_and_symbol_args
     posts = Post.select(:title).joins(:user)
-    assert_equal posts.pluck(:email).map{|s| { 'email' => s }}, posts.pluck_all(:email)
+    assert_equal posts.pluck(:email).map{|s| { 'email' => s } }, posts.pluck_all(:email)
   end
 end
