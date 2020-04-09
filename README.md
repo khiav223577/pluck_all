@@ -113,14 +113,14 @@ Comparison:
 
 ### Compare with [pluck_to_hash](https://github.com/girishso/pluck_to_hash) gem
 
-`pluck_all` has better performace since it uses raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` uses `pluck` method, which calls `ActiveRecord::Base.connection.select_all` and transfers the raw `hash` data to `array` format, and then transfer the data to `hash` format again. The following benchmark test uses same datebase as above.
+`pluck_all` has better performace since it uses raw `hash` data from `ActiveRecord::Base.connection.select_all`, while `pluck_to_hash` uses `pluck` method, which calls `ActiveRecord::Base.connection.select_all` and transfers the raw `hash` data to `array` format, and then transfer the data to `hash` format again. The following benchmark shows the performance difference:
 
 ```rb
                                        user     system      total        real
 pluck_to_hash                      2.960000   0.130000   3.090000 (  3.421640)
 pluck_all                          2.160000   0.120000   2.280000 (  2.605118)
 ```
-Test by `benchmark-ips` and `limit 1000` in each iteration:
+Tested by `benchmark-ips` and `limit 1000` in each iteration:
 ```
 Warming up --------------------------------------
        pluck_to_hash     7.000  i/100ms
@@ -133,7 +133,7 @@ Comparison:
            pluck_all:       95.1 i/s
        pluck_to_hash:       84.5 i/s - 1.13x  slower
 ```
-[test script](https://github.com/khiav223577/pluck_all/issues/18#issuecomment-325407080)
+See the [test script](https://github.com/khiav223577/pluck_all/issues/18#issuecomment-325407080) for more details.
 
 ## Other Support
 ### Support Pluck Carrierwave Uploader (if you use carrierwave)
