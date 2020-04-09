@@ -8,7 +8,7 @@
 
 Pluck multiple columns/attributes in Rails 3, 4, 5, 6, and can return data as hash instead of only array. Also supports `Mongoid`.
 
-This Gem stands on the shoulders of this article: [Plucking Multiple Columns in Rails 3](http://meltingice.net/2013/06/11/pluck-multiple-columns-rails/).
+This Gem stands on the shoulders of this article: [Plucking Multiple Columns in Rails 3](https://meltingice.dev/2013/06/11/pluck-multiple-columns-rails/).
 And modified to support not only Rail 3.
 
 If you have a Rails 3 project, and want to pluck not only one column,
