@@ -147,7 +147,7 @@ User.where(xxx).map(&:profile_pic)
 If the uploader use something like: `model.id`, `model.name`
 You may have to send these columns manually:
 ```rb
-User.where(xxx).cast_need_columns(%i(id, name)).pluck_all(:id, :name, :profile_pic).map{|s| s['profile_pic'] }
+User.where(xxx).cast_need_columns(%i[id name]).pluck_all(:id, :name, :profile_pic).map{|s| s['profile_pic'] }
 ```
 
 ## Development
