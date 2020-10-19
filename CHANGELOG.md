@@ -1,12 +1,15 @@
 ## Change Log
 
-### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.0.4...HEAD) 2019/12/19
+### [v2.1.0](https://github.com/khiav223577/pluck_all/compare/v2.0.4...v2.1.0) 2020/10/19
+- [#47](https://github.com/khiav223577/pluck_all/pull/47) Use instantiate method to initialize model without calling callbacks (@khiav223577)
+- [#45](https://github.com/khiav223577/pluck_all/pull/45) Support Ruby 2.7 (@khiav223577)
+- [#44](https://github.com/khiav223577/pluck_all/pull/44) Move `require` from begin..rescue block for better debug message (@khiav223577)
 - [#43](https://github.com/khiav223577/pluck_all/pull/43) Use rails_compatibility to get attribute_types for better compatibility (@khiav223577)
 - [#41](https://github.com/khiav223577/pluck_all/pull/41) Support Rails 6.0 (@khiav223577)
 
 ### [v2.0.4](https://github.com/khiav223577/pluck_all/compare/v2.0.3...v2.0.4) 2019/04/04
 - [#40](https://github.com/khiav223577/pluck_all/pull/40) Fix: inconsistent with pluck when having `select` on relation (@khiav223577)
-- [#39](https://github.com/khiav223577/pluck_all/pull/39) Fix issue#38 (@MasashiYokota)
+- [#39](https://github.com/khiav223577/pluck_all/pull/39) Fix: undefined local variable or method `construct_relation_for_association_calculations` in Rails 5.2.2.1 (@MasashiYokota)
 - [#36](https://github.com/khiav223577/pluck_all/pull/36) Fix: broken test cases after bundler 2.0 was released (@khiav223577)
 - [#35](https://github.com/khiav223577/pluck_all/pull/35) refactor #test_pluck_with_includes (@khiav223577)
 - [#34](https://github.com/khiav223577/pluck_all/pull/34) Provide Arel support as well (@snkashis)
