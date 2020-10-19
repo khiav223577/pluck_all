@@ -2,17 +2,21 @@
 require_relative 'active_record_test_helper'
 
 class ActiveRecordPluckAllTest < Minitest::Test
+  def setup
+    @users = User.where(name: %w[Pearl Doggy])
+  end
+
   def test_pluck_with_carrierwave
     assert_equal([
       { 'name' => 'Pearl', 'profile_pic' => nil },
       { 'name' => 'Doggy', 'profile_pic' => '/uploads/user/profile_pic/Doggy/Profile.jpg' },
-    ], User.where(name: %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
+    ], @users.cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
       s['profile_pic'] = s['profile_pic'].url
     end)
     assert_equal([
       { 'name' => 'Pearl', 'profile_pic' => nil },
       { 'name' => 'Doggy', 'profile_pic' => '/uploads/user/profile_pic/Doggy/tiny_Profile.jpg' },
-    ], User.where(name: %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
+    ], @users.cast_need_columns(%i[name]).pluck_all(:name, :profile_pic).each do |s|
       s['profile_pic'] = s['profile_pic'].tiny.url
     end)
   end
@@ -33,17 +37,13 @@ class ActiveRecordPluckAllTest < Minitest::Test
     assert_equal([
       { 'name' => 'Pearl', 'profile_pic' => nil },
       { 'name' => 'Doggy', 'profile_pic' => 'Profile.jpg' },
-    ], User.where(name: %w[Pearl Doggy]).cast_need_columns(%i[name]).pluck_all(:name, :profile_pic))
+    ], @users.cast_need_columns(%i[name]).pluck_all(:name, :profile_pic))
     Object.const_set(:CarrierWave, const)
   end
 
   def test_pluck_without_cast_need_columns
-    assert_equal([
-      { 'name' => 'Pearl', 'pet_pic' => nil },
-      { 'name' => 'Doggy', 'pet_pic' => '/uploads/user/pet_pic/Pet.png' },
-    ], User.where(name: %w[Pearl Doggy]).pluck_all(:name, :pet_pic).each do |s|
-      s['pet_pic'] = s['pet_pic'].url
-    end)
+    error = assert_raises(ActiveModel::MissingAttributeError){ @users.pluck_all(:name, :pet_pic) }
+    assert_equal 'missing attribute: name', error.message
   end
 
   def test_pluck_with_carrierwave_and_join
