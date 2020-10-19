@@ -85,7 +85,7 @@ class ActiveRecord::Relation
       @pluck_all_uploaders.each do |key, _uploader|
         {}.tap do |hash|
           @pluck_all_cast_need_columns.each{|k| hash[k] = attributes[k] } if @pluck_all_cast_need_columns
-          obj = @pluck_all_cast_klass.new(hash)
+          obj = @pluck_all_cast_klass.instantiate(hash)
           obj[key] = attributes[key_s = key.to_s]
           # https://github.com/carrierwaveuploader/carrierwave/blob/87c37b706c560de6d01816f9ebaa15ce1c51ed58/lib/carrierwave/mount.rb#L142
           attributes[key_s] = obj.send(key)
