@@ -19,6 +19,7 @@ gemfile:
   - gemfiles/active_record_51.gemfile
   - gemfiles/active_record_52.gemfile
   - gemfiles/active_record_60.gemfile
+  - gemfiles/active_record_61.gemfile
   - gemfiles/mongoid_54.gemfile
   - gemfiles/mongoid_64.gemfile
   - gemfiles/mongoid_70.gemfile
@@ -43,6 +44,10 @@ matrix:
     - gemfile: gemfiles/active_record_60.gemfile
       rvm: 2.2
     - gemfile: gemfiles/active_record_60.gemfile
+      env: ORM_TYPE=MONGOID
+    - gemfile: gemfiles/active_record_61.gemfile
+      rvm: 2.2
+    - gemfile: gemfiles/active_record_61.gemfile
       env: ORM_TYPE=MONGOID
     - gemfile: gemfiles/mongoid_54.gemfile
       rvm: 2.7
