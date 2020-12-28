@@ -51,7 +51,7 @@ class ActiveRecord::Relation
       end
       result = select_all(*column_names)
       attribute_types = RailsCompatibility.attribute_types(klass)
-      result.map! do |attributes| # This map! behaves different to array#map!
+      result.map do |attributes| # This map behaves different to array#map
         attributes.each do |key, attribute|
           attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute) # TODO: 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
         end
@@ -80,6 +80,7 @@ class ActiveRecord::Relation
   # ----------------------------------------------------------------
   def cast_carrier_wave_uploader_url(attributes)
     if defined?(CarrierWave) && klass.respond_to?(:uploaders)
+      @pluck_all_cast_need_columns ||= nil
       @pluck_all_cast_klass ||= klass
       @pluck_all_uploaders ||= @pluck_all_cast_klass.uploaders.select{|key, _uploader| attributes.key?(key.to_s) }
       @pluck_all_uploaders.each do |key, _uploader|
