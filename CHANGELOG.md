@@ -1,5 +1,8 @@
 ## Change Log
 
+### [v2.2.1](https://github.com/khiav223577/pluck_all/compare/v2.1.0...v2.2.1) 2020/12/29
+- [#48](https://github.com/khiav223577/pluck_all/pull/48) fix Rails 6.1 `map!` deprecation warning (@klausbadelt)
+
 ### [v2.1.0](https://github.com/khiav223577/pluck_all/compare/v2.0.4...v2.1.0) 2020/10/19
 - [#47](https://github.com/khiav223577/pluck_all/pull/47) Use instantiate method to initialize model without calling callbacks (@khiav223577)
 - [#45](https://github.com/khiav223577/pluck_all/pull/45) Support Ruby 2.7 (@khiav223577)
