@@ -16,7 +16,7 @@ feel free to use this gem and no need to worry about upgrading to Rails 4, 5, 6 
 
 ## Supports
 - Ruby 2.2 ~ 2.7
-- Rails 3.2, 4.2, 5.0, 5.1, 5.2, 6.0
+- Rails 3.2, 4.2, 5.0, 5.1, 5.2, 6.0, 6.1
 
 ## Installation
 
