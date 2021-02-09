@@ -1,0 +1,101 @@
+name: Ruby
+
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'CHANGELOG.md'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - 'README.md'
+      - 'CHANGELOG.md'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    if: "contains(github.event.commits[0].message, '[ci skip]') == false"
+    strategy:
+      fail-fast: false
+      matrix:
+        orm:
+          - ACTIVE_RECORD
+          - MONGOID
+        ruby:
+          - 2.2
+          - 2.6
+          - 2.7
+        gemfile:
+          - active_record_32.gemfile
+          - active_record_42.gemfile
+          - active_record_50.gemfile
+          - active_record_51.gemfile
+          - active_record_52.gemfile
+          - active_record_60.gemfile
+          - active_record_61.gemfile
+          - mongoid_54.gemfile
+          - mongoid_64.gemfile
+          - mongoid_70.gemfile
+        exclude:
+          - gemfile: active_record_32.gemfile
+            ruby: 2.6
+          - gemfile: active_record_32.gemfile
+            ruby: 2.7
+          - gemfile: active_record_32.gemfile
+            orm: MONGOID
+          - gemfile: active_record_42.gemfile
+            ruby: 2.7
+          - gemfile: active_record_42.gemfile
+            orm: MONGOID
+          - gemfile: active_record_50.gemfile
+            orm: MONGOID
+          - gemfile: active_record_51.gemfile
+            orm: MONGOID
+          - gemfile: active_record_52.gemfile
+            orm: MONGOID
+          - gemfile: active_record_60.gemfile
+            ruby: 2.2
+          - gemfile: active_record_60.gemfile
+            orm: MONGOID
+          - gemfile: active_record_61.gemfile
+            ruby: 2.2
+          - gemfile: active_record_61.gemfile
+            orm: MONGOID
+          - gemfile: mongoid_54.gemfile
+            ruby: 2.7
+          - gemfile: mongoid_54.gemfile
+            orm: ACTIVE_RECORD
+          - gemfile: mongoid_64.gemfile
+            orm: ACTIVE_RECORD
+          - gemfile: mongoid_70.gemfile
+            orm: ACTIVE_RECORD
+    env:
+      BUNDLE_GEMFILE: "gemfiles/${{ matrix.gemfile }}"
+      ORM_TYPE: "${{ matrix.orm }}"
+
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports:
+          - 27017:27017
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Run tests
+      if: env.ORM_TYPE == 'ACTIVE_RECORD'
+      run: bundle exec rake test_active_record
+    - name: Run tests
+      if: env.ORM_TYPE == 'MONGOID'
+      run: bundle exec rake test_mongoid
+    - name: Publish code coverage
+      if: ${{ success() }}
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
