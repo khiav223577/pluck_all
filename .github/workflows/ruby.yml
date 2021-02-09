@@ -74,6 +74,12 @@ jobs:
       BUNDLE_GEMFILE: "gemfiles/${{ matrix.gemfile }}"
       ORM_TYPE: "${{ matrix.orm }}"
 
+    services:
+      mongodb:
+        image: mongo:3.4.23
+        ports:
+          - 27017:27017
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
