@@ -89,7 +89,11 @@ jobs:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
-      run: bundle exec rake
+      if: env.ORM_TYPE == 'ACTIVE_RECORD'
+      run: bundle exec rake test_active_record
+    - name: Run tests
+      if: env.ORM_TYPE == 'MONGOID'
+      run: bundle exec rake test_mongoid
     - name: Publish code coverage
       if: ${{ success() }}
       uses: paambaati/codeclimate-action@v2.7.5
