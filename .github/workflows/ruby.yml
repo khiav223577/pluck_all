@@ -39,13 +39,13 @@ jobs:
           - mongoid_70.gemfile
         exclude:
           - gemfile: active_record_32.gemfile
-            rvm: 2.6
+            ruby: 2.6
           - gemfile: active_record_32.gemfile
-            rvm: 2.7
+            ruby: 2.7
           - gemfile: active_record_32.gemfile
             orm: MONGOID
           - gemfile: active_record_42.gemfile
-            rvm: 2.7
+            ruby: 2.7
           - gemfile: active_record_42.gemfile
             orm: MONGOID
           - gemfile: active_record_50.gemfile
@@ -55,15 +55,15 @@ jobs:
           - gemfile: active_record_52.gemfile
             orm: MONGOID
           - gemfile: active_record_60.gemfile
-            rvm: 2.2
+            ruby: 2.2
           - gemfile: active_record_60.gemfile
             orm: MONGOID
           - gemfile: active_record_61.gemfile
-            rvm: 2.2
+            ruby: 2.2
           - gemfile: active_record_61.gemfile
             orm: MONGOID
           - gemfile: mongoid_54.gemfile
-            rvm: 2.7
+            ruby: 2.7
           - gemfile: mongoid_54.gemfile
             orm: ACTIVE_RECORD
           - gemfile: mongoid_64.gemfile
