@@ -2,6 +2,10 @@
 require_relative 'active_record_test_helper'
 
 class ActiveRecordGlobalizeTest < Minitest::Test
+  def setup
+    skip if ActiveRecord::VERSION::MAJOR < 4
+  end
+
   def test_pluck_all
     assert_equal([
       { 'title' => 'What is your favorite food?' },

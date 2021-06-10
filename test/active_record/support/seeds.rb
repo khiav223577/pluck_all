@@ -18,12 +18,6 @@ ActiveRecord::Schema.define do
     t.string :name
     t.string :title
   end
-
-  create_table :questionnaires, force: true do |t|
-    # t.string :
-  end
-
-  Questionnaire.create_translation_table! title: :string
 end
 
 users = User.create([
@@ -45,13 +39,24 @@ Post.create([
   { name: 'post6', title: 'no owner post' },
 ])
 
-I18n.available_locales = [:en, :'zh-TW']
+if ActiveRecord::VERSION::MAJOR > 3
+  require 'globalize'
 
-Questionnaire.create.tap do |questionnaire|
-  I18n.with_locale(:en){ questionnaire.update(title: 'What is your favorite food?') }
-  I18n.with_locale(:'zh-TW'){ questionnaire.update(title: '你最愛的食物為何？') }
-end
+  ActiveRecord::Schema.define do
+    create_table :questionnaires, force: true do |_t|
+    end
 
-Questionnaire.create.tap do |questionnaire|
-  I18n.with_locale(:en){ questionnaire.update(title: 'Why did you purchase this product?') }
+    Questionnaire.create_translation_table! title: :string
+  end
+
+  I18n.available_locales = [:en, :'zh-TW']
+
+  Questionnaire.create.tap do |questionnaire|
+    I18n.with_locale(:en){ questionnaire.update(title: 'What is your favorite food?') }
+    I18n.with_locale(:'zh-TW'){ questionnaire.update(title: '你最愛的食物為何？') }
+  end
+
+  Questionnaire.create.tap do |questionnaire|
+    I18n.with_locale(:en){ questionnaire.update(title: 'Why did you purchase this product?') }
+  end
 end
