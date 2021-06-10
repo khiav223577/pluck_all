@@ -14,7 +14,7 @@ class ActiveRecord::Relation
     relation = clone
 
     # See: https://github.com/globalize/globalize/pull/707
-    if respond_to?(:translated_attribute_names) && (parsed = parse_translated_columns(column_names))
+    if relation.klass.method_defined?(:translated_attribute_names) && (parsed = parse_translated_columns(column_names))
       relation = relation.join_translations
       column_names = parsed
     end
