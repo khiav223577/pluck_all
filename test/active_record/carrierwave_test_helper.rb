@@ -10,6 +10,7 @@ class ProfilePictureUploader < CarrierWave::Uploader::Base
   version :tiny do
   end
 end
+
 class PetPictureUploader < CarrierWave::Uploader::Base
   def store_dir
     return "/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.name}"
