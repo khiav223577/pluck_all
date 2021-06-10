@@ -136,6 +136,26 @@ Comparison:
 See the [test script](https://github.com/khiav223577/pluck_all/issues/18#issuecomment-325407080) for more details.
 
 ## Other Support
+
+### Support globalize gem
+
+```rb
+class Post < ActiveRecord::Base
+  translates :title
+end
+```
+
+```rb
+I18n.locale = :en
+Post.pluck_all(:title)
+# => [{ 'title' => 'english' }, { 'title' => 'english' }, ...]
+
+I18n.locale = :'zh-TW'
+Post.pluck_all(:title)
+# => [{ 'title' => '中文' }, { 'title' => '中文' }, ...]
+```
+
+
 ### Support Pluck Carrierwave Uploader (if you use carrierwave)
 ```rb
 User.where(xxx).pluck_all(:profile_pic).map{|s| s['profile_pic'] }
