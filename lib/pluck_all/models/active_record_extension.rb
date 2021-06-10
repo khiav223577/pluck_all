@@ -8,16 +8,24 @@ class ActiveRecord::Relation
     return self
   end
 
-  def select_all(*column_names)
+  def select_all(column_names)
     relation = clone
+
+    # See: https://github.com/globalize/globalize/pull/707
+    if respond_to?(:translated_attribute_names) && (parsed = parse_translated_columns(column_names))
+      relation = relation.join_translations
+      column_names = parsed
+    end
+
     relation.select_values = [].freeze # cannot use `unscope(:select)` in Rails 3
-    return klass.connection.select_all(relation.select(column_names).to_sql)
+
+    sql = relation.select(column_names.map(&to_sql_column_name)).to_sql
+    return klass.connection.select_all(sql)
   end
 
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*column_names, cast_uploader_url: true)
-      column_names.map!(&to_sql_column_name)
-      result = select_all(*column_names)
+      result = select_all(column_names)
       result.map! do |attributes| # This map! behaves different to array#map!
         initialized_attributes = klass.initialize_attributes(attributes)
         attributes.each do |key, _attribute|
@@ -43,13 +51,13 @@ class ActiveRecord::Relation
     end
   else
     def pluck_all(*column_names, cast_uploader_url: true)
-      column_names.map!(&to_sql_column_name)
       if has_include?(column_names.first)
         # The `construct_relation_for_association_calculations` method was removed at Rails 5.2.
         relation = Gem::Version.new(ActiveRecord::VERSION::STRING) >= Gem::Version.new('5.2.0') ? apply_join_dependency : construct_relation_for_association_calculations
         return relation.pluck_all(*column_names)
       end
-      result = select_all(*column_names)
+
+      result = select_all(column_names)
       attribute_types = RailsCompatibility.attribute_types(klass)
       result.map do |attributes| # This map behaves different to array#map
         attributes.each do |key, attribute|
