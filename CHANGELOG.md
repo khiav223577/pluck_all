@@ -1,5 +1,11 @@
 ## Change Log
 
+### [v2.3.0](https://github.com/khiav223577/pluck_all/compare/v2.2.1...v2.3.0) 2021/06/10
+- [#52](https://github.com/khiav223577/pluck_all/pull/52) Support `globalize` gem (@khiav223577)
+- [#51](https://github.com/khiav223577/pluck_all/pull/51) Fix: broken test cases caused by `mimemagic` (@khiav223577)
+- [#50](https://github.com/khiav223577/pluck_all/pull/50) Migrating from Travis CI to GitHub Actions (@khiav223577)
+- [#49](https://github.com/khiav223577/pluck_all/pull/49) Fix: test files should not be included in coverage (@khiav223577)
+
 ### [v2.2.1](https://github.com/khiav223577/pluck_all/compare/v2.1.0...v2.2.1) 2020/12/29
 - [#48](https://github.com/khiav223577/pluck_all/pull/48) fix Rails 6.1 `map!` deprecation warning (@klausbadelt)
 
