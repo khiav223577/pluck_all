@@ -1,4 +1,5 @@
 require 'rails_compatibility/attribute_types'
+require 'rails_compatibility/has_include'
 require_relative 'patches/deserialize'
 
 class ActiveRecord::Relation
@@ -51,7 +52,7 @@ class ActiveRecord::Relation
     end
   else
     def pluck_all(*column_names, cast_uploader_url: true)
-      if has_include?(column_names.first)
+      if RailsCompatibility.has_include?(self, column_names.first)
         # The `construct_relation_for_association_calculations` method was removed at Rails 5.2.
         relation = Gem::Version.new(ActiveRecord::VERSION::STRING) >= Gem::Version.new('5.2.0') ? apply_join_dependency : construct_relation_for_association_calculations
         return relation.pluck_all(*column_names)
