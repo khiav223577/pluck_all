@@ -1,5 +1,8 @@
 ## Change Log
 
+### [v2.3.1](https://github.com/khiav223577/pluck_all/compare/v2.3.0...v2.3.1) 2021/06/10
+- [#53](https://github.com/khiav223577/pluck_all/pull/53) Fix: ActiveRecord::ImmutableRelation (@khiav223577)
+
 ### [v2.3.0](https://github.com/khiav223577/pluck_all/compare/v2.2.1...v2.3.0) 2021/06/10
 - [#52](https://github.com/khiav223577/pluck_all/pull/52) Support `globalize` gem (@khiav223577)
 - [#51](https://github.com/khiav223577/pluck_all/pull/51) Fix: broken test cases caused by `mimemagic` (@khiav223577)
