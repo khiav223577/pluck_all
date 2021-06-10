@@ -92,4 +92,14 @@ class ActiveRecordPluckAllTest < Minitest::Test
     posts = Post.select(:title).joins(:user)
     assert_equal posts.pluck(:email).map{|s| { 'email' => s } }, posts.pluck_all(:email)
   end
+
+  def test_not_be_immutable_after_pluck_all
+    relation = Post.includes(:user).limit(1)
+    relation.pluck_all(:id)
+
+    assert_equal [:user], relation.includes_values
+
+    relation.includes_values = []
+    assert_equal [], relation.includes_values
+  end
 end
