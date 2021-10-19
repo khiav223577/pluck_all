@@ -26,6 +26,7 @@ jobs:
           - 2.2
           - 2.6
           - 2.7
+          - 3.0
         gemfile:
           - active_record_32.gemfile
           - active_record_42.gemfile
@@ -43,15 +44,25 @@ jobs:
           - gemfile: active_record_32.gemfile
             ruby: 2.7
           - gemfile: active_record_32.gemfile
+            ruby: 3.0
+          - gemfile: active_record_32.gemfile
             orm: MONGOID
           - gemfile: active_record_42.gemfile
             ruby: 2.7
           - gemfile: active_record_42.gemfile
+            ruby: 3.0
+          - gemfile: active_record_42.gemfile
             orm: MONGOID
+          - gemfile: active_record_50.gemfile
+            ruby: 3.0
           - gemfile: active_record_50.gemfile
             orm: MONGOID
           - gemfile: active_record_51.gemfile
+            ruby: 3.0
+          - gemfile: active_record_51.gemfile
             orm: MONGOID
+          - gemfile: active_record_52.gemfile
+            ruby: 3.0
           - gemfile: active_record_52.gemfile
             orm: MONGOID
           - gemfile: active_record_60.gemfile
@@ -64,6 +75,8 @@ jobs:
             orm: MONGOID
           - gemfile: mongoid_54.gemfile
             ruby: 2.7
+          - gemfile: mongoid_54.gemfile
+            ruby: 3.0
           - gemfile: mongoid_54.gemfile
             orm: ACTIVE_RECORD
           - gemfile: mongoid_64.gemfile
