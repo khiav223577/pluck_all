@@ -2,11 +2,11 @@
 module Mongoid
   module Document::ClassMethods
     def pluck_array(*fields)
-      where(nil).pluck_array(*fields)
+      where.pluck_array(*fields)
     end
 
     def pluck_all(*fields)
-      where(nil).pluck_all(*fields)
+      where.pluck_all(*fields)
     end
   end
 
