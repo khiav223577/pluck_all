@@ -1,5 +1,12 @@
 ## Change Log
 
+### [v2.3.3](https://github.com/khiav223577/pluck_all/compare/v2.3.2...v2.3.3) 2022/01/12
+- [#57](https://github.com/khiav223577/pluck_all/pull/57) Fix: delegate method error with mongoid 7.3.3 (@khiav223577)
+- [#55](https://github.com/khiav223577/pluck_all/pull/55) Support Ruby 3.0 (@khiav223577)
+
+### [v2.3.2](https://github.com/khiav223577/pluck_all/compare/v2.3.1...v2.3.2) 2021/06/10
+- [#54](https://github.com/khiav223577/pluck_all/pull/54) Fix: ActiveRecord::ImmutableRelation II (@khiav223577)
+
 ### [v2.3.1](https://github.com/khiav223577/pluck_all/compare/v2.3.0...v2.3.1) 2021/06/10
 - [#53](https://github.com/khiav223577/pluck_all/pull/53) Fix: ActiveRecord::ImmutableRelation (@khiav223577)
 
