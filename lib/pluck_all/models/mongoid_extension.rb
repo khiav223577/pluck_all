@@ -11,11 +11,19 @@ module Mongoid
   end
 
   module Findable
-    delegate :pluck_all, :pluck_array, to: :with_default_scope
+    if singleton_class < Forwardable
+      def_delegators :with_default_scope, :pluck_all, :pluck_array
+    else
+      delegate :pluck_all, :pluck_array, to: :with_default_scope
+    end
   end
 
   module Contextual
-    delegate :pluck_all, :pluck_array, to: :context
+    if singleton_class < Forwardable
+      def_delegators :context, :pluck_all, :pluck_array
+    else
+      delegate :pluck_all, :pluck_array, to: :context
+    end
 
     class None
       def pluck_array(*)
