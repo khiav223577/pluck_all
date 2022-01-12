@@ -1,12 +1,22 @@
 # frozen_string_literal: true
 module Mongoid
   module Document::ClassMethods
-    def pluck_array(*fields)
-      where.pluck_array(*fields)
-    end
+    if defined?(Mongoid::Errors::CriteriaArgumentRequired)
+      def pluck_array(*fields)
+        where.pluck_array(*fields)
+      end
 
-    def pluck_all(*fields)
-      where.pluck_all(*fields)
+      def pluck_all(*fields)
+        where.pluck_all(*fields)
+      end
+    else
+      def pluck_array(*fields)
+        where(nil).pluck_array(*fields)
+      end
+
+      def pluck_all(*fields)
+        where(nil).pluck_all(*fields)
+      end
     end
   end
 
