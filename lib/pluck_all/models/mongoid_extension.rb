@@ -1,21 +1,39 @@
 # frozen_string_literal: true
 module Mongoid
   module Document::ClassMethods
-    def pluck_array(*fields)
-      where(nil).pluck_array(*fields)
-    end
+    if defined?(Mongoid::Errors::CriteriaArgumentRequired)
+      def pluck_array(*fields)
+        where.pluck_array(*fields)
+      end
 
-    def pluck_all(*fields)
-      where(nil).pluck_all(*fields)
+      def pluck_all(*fields)
+        where.pluck_all(*fields)
+      end
+    else
+      def pluck_array(*fields)
+        where(nil).pluck_array(*fields)
+      end
+
+      def pluck_all(*fields)
+        where(nil).pluck_all(*fields)
+      end
     end
   end
 
   module Findable
-    delegate :pluck_all, :pluck_array, to: :with_default_scope
+    if singleton_class < Forwardable
+      def_delegators :with_default_scope, :pluck_all, :pluck_array
+    else
+      delegate :pluck_all, :pluck_array, to: :with_default_scope
+    end
   end
 
   module Contextual
-    delegate :pluck_all, :pluck_array, to: :context
+    if singleton_class < Forwardable
+      def_delegators :context, :pluck_all, :pluck_array
+    else
+      delegate :pluck_all, :pluck_array, to: :context
+    end
 
     class None
       def pluck_array(*)
