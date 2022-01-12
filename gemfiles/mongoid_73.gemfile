@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in pluck_all.gemspec
 
-gem 'mongoid', '~> 7.0.0'
+gem 'mongoid', '~> 7.3.3'
 
 group :test do
   gem 'simplecov', '< 0.18'

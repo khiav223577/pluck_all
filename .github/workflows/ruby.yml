@@ -37,7 +37,7 @@ jobs:
           - active_record_61.gemfile
           - mongoid_54.gemfile
           - mongoid_64.gemfile
-          - mongoid_70.gemfile
+          - mongoid_73.gemfile
         exclude:
           - gemfile: active_record_32.gemfile
             ruby: 2.6
@@ -81,7 +81,7 @@ jobs:
             orm: ACTIVE_RECORD
           - gemfile: mongoid_64.gemfile
             orm: ACTIVE_RECORD
-          - gemfile: mongoid_70.gemfile
+          - gemfile: mongoid_73.gemfile
             orm: ACTIVE_RECORD
     env:
       BUNDLE_GEMFILE: "gemfiles/${{ matrix.gemfile }}"
