@@ -1,0 +1,19 @@
+source 'https://rubygems.org'
+
+# Specify your gem's dependencies in pluck_all.gemspec
+
+gem 'sqlite3',      '~> 1.4.1'
+gem 'zeitwerk'
+gem 'activerecord', '~> 7.0.0'
+gem 'rails_compatibility', '~> 0.0.7'
+
+gem 'carrierwave',  '~> 0.11.0'
+gem 'mimemagic', '< 0.4.3' # Used by carrierwave gem
+
+# gem 'globalize',  '~> 6.0.1' # TODO: wait for globalize to support Rails 7.
+
+group :test do
+  gem 'simplecov', '< 0.18'
+end
+
+gemspec path: '../'

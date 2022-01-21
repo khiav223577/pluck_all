@@ -3,7 +3,7 @@ require_relative 'active_record_test_helper'
 
 class ActiveRecordGlobalizeTest < Minitest::Test
   def setup
-    skip if ActiveRecord::VERSION::MAJOR < 4
+    skip if not SUPPORT_GLOBALIZE
   end
 
   def test_pluck_all

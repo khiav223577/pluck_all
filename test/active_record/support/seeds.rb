@@ -2,6 +2,13 @@
 
 ActiveSupport::Dependencies.autoload_paths << File.expand_path('../models/', __FILE__)
 
+if ActiveSupport::VERSION::MAJOR >= 7
+  require 'zeitwerk'
+  loader = Zeitwerk::Loader.for_gem
+  ActiveSupport::Dependencies.autoload_paths.each{|path| loader.push_dir(path) }
+  loader.setup
+end
+
 ActiveRecord::Schema.define do
   self.verbose = false
 
@@ -39,7 +46,10 @@ Post.create([
   { name: 'post6', title: 'no owner post' },
 ])
 
-if ActiveRecord::VERSION::MAJOR > 3
+# TODO: wait for globalize to support Rails 7.
+SUPPORT_GLOBALIZE = (ActiveRecord::VERSION::MAJOR > 3 && ActiveRecord::VERSION::MAJOR < 7)
+
+if SUPPORT_GLOBALIZE
   require 'globalize'
 
   ActiveRecord::Schema.define do
