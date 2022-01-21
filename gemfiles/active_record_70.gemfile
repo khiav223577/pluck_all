@@ -9,7 +9,7 @@ gem 'rails_compatibility', '~> 0.0.7'
 gem 'carrierwave',  '~> 0.11.0'
 gem 'mimemagic', '< 0.4.3' # Used by carrierwave gem
 
-gem 'globalize',  '~> 6.0.1'
+# gem 'globalize',  '~> 6.0.1' # TODO: wait for globalize to support Rails 7.
 
 group :test do
   gem 'simplecov', '< 0.18'
