@@ -2,6 +2,13 @@
 
 ActiveSupport::Dependencies.autoload_paths << File.expand_path('../models/', __FILE__)
 
+if ActiveSupport::VERSION::MAJOR >= 7
+  require 'zeitwerk'
+  loader = Zeitwerk::Loader.for_gem
+  ActiveSupport::Dependencies.autoload_paths.each{|path| loader.push_dir(path) }
+  loader.setup
+end
+
 ActiveRecord::Schema.define do
   self.verbose = false
 

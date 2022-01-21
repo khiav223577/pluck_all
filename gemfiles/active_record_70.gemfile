@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in pluck_all.gemspec
 
 gem 'sqlite3',      '~> 1.4.1'
+gem 'zeitwerk'
 gem 'activerecord', '~> 7.0.0'
 gem 'rails_compatibility', '~> 0.0.7'
 
