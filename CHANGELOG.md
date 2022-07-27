@@ -1,5 +1,9 @@
 ## Change Log
 
+### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.3.3...HEAD) 2022/07/27
+- [#59](https://github.com/khiav223577/pluck_all/pull/59) Refactor: use gem to setup autoload paths in tests (@khiav223577)
+- [#58](https://github.com/khiav223577/pluck_all/pull/58) Support Ruby 3.1 and Rails 7.0 (@khiav223577)
+
 ### [v2.3.3](https://github.com/khiav223577/pluck_all/compare/v2.3.2...v2.3.3) 2022/01/12
 - [#57](https://github.com/khiav223577/pluck_all/pull/57) Fix: delegate method error with mongoid 7.3.3 (@khiav223577)
 - [#55](https://github.com/khiav223577/pluck_all/pull/55) Support Ruby 3.0 (@khiav223577)
