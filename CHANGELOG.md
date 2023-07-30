@@ -1,6 +1,7 @@
 ## Change Log
 
-### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.3.3...HEAD) 2022/07/27
+### [v2.3.4](https://github.com/khiav223577/pluck_all/compare/v2.3.3...v2.3.4) 2023/07/30
+- [#61](https://github.com/khiav223577/pluck_all/pull/61) Deal with the parameter handling which was changed in Rails 7.0.6 (@khiav223577)
 - [#59](https://github.com/khiav223577/pluck_all/pull/59) Refactor: use gem to setup autoload paths in tests (@khiav223577)
 - [#58](https://github.com/khiav223577/pluck_all/pull/58) Support Ruby 3.1 and Rails 7.0 (@khiav223577)
 
