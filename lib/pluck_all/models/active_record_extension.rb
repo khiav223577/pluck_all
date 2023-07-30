@@ -57,17 +57,23 @@ class ActiveRecord::Relation
       return RailsCompatibility.apply_join_dependency(self).pluck_all(*column_names) if has_include
 
       result = select_all(column_names)
+      return cast_values(result, cast_uploader_url)
+    end
+
+    private
+
+    # Please refer to the 'cast_values' method in the 'active_record/result.rb' file to see the original implementation of `pluck` method.
+    def cast_values(result, cast_uploader_url)
       attribute_types = RailsCompatibility.attribute_types(klass)
+
       result.map do |attributes| # This map behaves different to array#map
         attributes.each do |key, attribute|
-          attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute) # TODO: 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
+          attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute)
         end
         cast_carrier_wave_uploader_url(attributes) if cast_uploader_url
         next attributes
       end
     end
-
-    private
 
     def to_sql_column_name
       proc do |column_name|
