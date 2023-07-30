@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'sqlite3',      '~> 1.4.1'
 gem 'zeitwerk'
-gem 'activerecord', '~> 7.0.0'
+gem 'activerecord', '~> 7.0.6'
 gem 'rails_compatibility', '~> 0.0.7'
 
 gem 'carrierwave',  '~> 0.11.0'

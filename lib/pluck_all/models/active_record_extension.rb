@@ -1,7 +1,6 @@
-require 'rails_compatibility/attribute_types'
 require 'rails_compatibility/has_include'
 require 'rails_compatibility/apply_join_dependency'
-require_relative 'patches/deserialize'
+require 'rails_compatibility/cast_values'
 
 class ActiveRecord::Relation
   def cast_need_columns(column_names, _klass = nil)
@@ -28,14 +27,10 @@ class ActiveRecord::Relation
   if Gem::Version.new(ActiveRecord::VERSION::STRING) < Gem::Version.new('4.0.0')
     def pluck_all(*column_names, cast_uploader_url: true)
       result = select_all(column_names)
-      result.map! do |attributes| # This map! behaves different to array#map!
-        initialized_attributes = klass.initialize_attributes(attributes)
-        attributes.each do |key, _attribute|
-          attributes[key] = klass.type_cast_attribute(key, initialized_attributes) # TODO: 現在AS過後的type cast會有一點問題
-        end
-        cast_carrier_wave_uploader_url(attributes) if cast_uploader_url
-        next attributes
-      end
+      casted_result = RailsCompatibility.cast_values(klass, result)
+
+      casted_result.each{|attributes| cast_carrier_wave_uploader_url(attributes) } if cast_uploader_url
+      return casted_result
     end
 
     private
@@ -57,14 +52,10 @@ class ActiveRecord::Relation
       return RailsCompatibility.apply_join_dependency(self).pluck_all(*column_names) if has_include
 
       result = select_all(column_names)
-      attribute_types = RailsCompatibility.attribute_types(klass)
-      result.map do |attributes| # This map behaves different to array#map
-        attributes.each do |key, attribute|
-          attributes[key] = result.send(:column_type, key, attribute_types).deserialize(attribute) # TODO: 現在AS過後的type cast會有一點問題，但似乎原生的pluck也有此問題
-        end
-        cast_carrier_wave_uploader_url(attributes) if cast_uploader_url
-        next attributes
-      end
+      casted_result = RailsCompatibility.cast_values(klass, result)
+
+      casted_result.each{|attributes| cast_carrier_wave_uploader_url(attributes) } if cast_uploader_url
+      return casted_result
     end
 
     private

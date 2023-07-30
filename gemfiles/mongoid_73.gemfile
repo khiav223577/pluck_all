@@ -4,6 +4,11 @@ source 'https://rubygems.org'
 
 gem 'mongoid', '~> 7.3.3'
 
+# We need zeitwerk for autoloading in Rails 7
+# But zeitwerk required ruby >= 2.4.4, we cannot test it in ruby 2.3
+# So we lock the version below 7
+gem 'activesupport', '< 7'
+
 group :test do
   gem 'simplecov', '< 0.18'
 end

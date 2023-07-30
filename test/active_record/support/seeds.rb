@@ -21,6 +21,8 @@ ActiveRecord::Schema.define do
   end
 end
 
+ActiveRecord::Base.use_yaml_unsafe_load = true if ActiveRecord::Base.method_defined?(:use_yaml_unsafe_load)
+
 users = User.create([
   { name: 'John', email: 'john@example.com' },
   { name: 'Pearl', email: 'pearl@example.com', serialized_attribute: { testing: true, deep: { deep: :deep }}},
