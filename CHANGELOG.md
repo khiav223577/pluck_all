@@ -1,5 +1,9 @@
 ## Change Log
 
+### [upcoming](https://github.com/khiav223577/pluck_all/compare/v2.3.4...HEAD) 2023/12/24
+- [#63](https://github.com/khiav223577/pluck_all/pull/63) Support Rails 7.1 (@khiav223577)
+- [#62](https://github.com/khiav223577/pluck_all/pull/62) Skip the step of publishing code coverage for the PR from forked repos (@khiav223577)
+
 ### [v2.3.4](https://github.com/khiav223577/pluck_all/compare/v2.3.3...v2.3.4) 2023/07/30
 - [#61](https://github.com/khiav223577/pluck_all/pull/61) Deal with the parameter handling which was changed in Rails 7.0.6 (@khiav223577)
 - [#59](https://github.com/khiav223577/pluck_all/pull/59) Refactor: use gem to setup autoload paths in tests (@khiav223577)
