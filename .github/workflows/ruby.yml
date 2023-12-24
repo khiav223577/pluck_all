@@ -37,6 +37,7 @@ jobs:
           - active_record_60.gemfile
           - active_record_61.gemfile
           - active_record_70.gemfile
+          - active_record_71.gemfile
           - mongoid_54.gemfile
           - mongoid_64.gemfile
           - mongoid_73.gemfile
@@ -90,6 +91,12 @@ jobs:
           - gemfile: active_record_70.gemfile
             ruby: 2.6
           - gemfile: active_record_70.gemfile
+            orm: MONGOID
+          - gemfile: active_record_71.gemfile
+            ruby: 2.3
+          - gemfile: active_record_71.gemfile
+            ruby: 2.6
+          - gemfile: active_record_71.gemfile
             orm: MONGOID
           - gemfile: mongoid_54.gemfile
             ruby: 2.7
