@@ -43,7 +43,12 @@ class ActiveRecordPluckAllTest < Minitest::Test
 
   def test_pluck_without_cast_need_columns
     error = assert_raises(ActiveModel::MissingAttributeError){ @users.pluck_all(:name, :pet_pic) }
-    assert_equal 'missing attribute: name', error.message
+
+    if Gem::Version.new(ActiveRecord::VERSION::STRING) >= Gem::Version.new('7.1.0')
+      assert_equal "missing attribute 'name' for User", error.message
+    else
+      assert_equal 'missing attribute: name', error.message
+    end
   end
 
   def test_pluck_with_carrierwave_and_join
