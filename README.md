@@ -15,8 +15,8 @@ If you have a Rails 3 project, and want to pluck not only one column,
 feel free to use this gem and no need to worry about upgrading to Rails 4, 5, 6 in the future will break this.
 
 ## Supports
-- Ruby 2.3 ~ 2.7, 3.0 ~ 3.1
-- Rails 3.2, 4.2, 5.0, 5.1, 5.2, 6.0, 6.1, 7.0, 7.1
+- Ruby 2.3 ~ 2.7, 3.0 ~ 3.2
+- Rails 3.2, 4.2, 5.0, 5.1, 5.2, 6.0, 6.1, 7.0, 7.1, 7.2
 
 ## Installation
 
