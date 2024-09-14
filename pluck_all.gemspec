@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'pluck_all'
   spec.version       = PluckAll::VERSION
   spec.authors       = ['khiav reoy']
-  spec.email         = ['mrtmrt15xn@yahoo.com.tw']
+  spec.email         = ['khiav223577@gmail.com']
 
   spec.summary       = 'Pluck multiple columns/attributes and return array of hashes. Support Rails 3, 4, 5.'
   spec.description   = 'Pluck multiple columns/attributes and return array of hashes. Support Rails 3, 4, 5. If you have a Rails 3 project, and want to pluck not only one column, feel free to use this gem and no need to worry about upgrading to Rails 4, 5 in the future will break this.'
